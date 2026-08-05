@@ -1,0 +1,12 @@
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Core\bin\Debug\net10.0\User.Service.Core.deps.json
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Core\bin\Debug\net10.0\User.Service.Core.dll
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Core\bin\Debug\net10.0\User.Service.Core.pdb
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Core\obj\Debug\net10.0\User.Service.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Core\obj\Debug\net10.0\User.Service.Core.AssemblyInfoInputs.cache
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Core\obj\Debug\net10.0\User.Service.Core.AssemblyInfo.cs
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Core\obj\Debug\net10.0\User.Service.Core.csproj.CoreCompileInputs.cache
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Core\obj\Debug\net10.0\User.Service.Core.sourcelink.json
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Core\obj\Debug\net10.0\User.Service.Core.dll
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Core\obj\Debug\net10.0\refint\User.Service.Core.dll
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Core\obj\Debug\net10.0\User.Service.Core.pdb
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Core\obj\Debug\net10.0\ref\User.Service.Core.dll

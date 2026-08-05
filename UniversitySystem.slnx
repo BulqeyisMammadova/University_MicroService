@@ -1,0 +1,35 @@
+<Solution>
+  <Folder Name="/ApiGateway/">
+    <Project Path="ApiGateway/ApiGateway.csproj" Id="44a8dd7a-4216-4f1a-be08-024007cf94f2" />
+  </Folder>
+  <Folder Name="/Auth.Service/">
+    <Project Path="Auth.Service.Api/Auth.Service.Api.csproj" Id="936f96e8-462f-4cff-8b5c-1e7b0f61d153" />
+    <Project Path="Auth.Service.Business/Auth.Service.Business.csproj" Id="dac4ed09-32fb-4a59-bfe6-4d16a4275fce" />
+    <Project Path="Auth.Service.Core/Auth.Service.Core.csproj" Id="cd9a3bfa-63c3-423d-9773-58140c076055" />
+    <Project Path="Auth.Service.DataAccess/Auth.Service.DataAccess.csproj" Id="e3e0cf74-f9af-4f29-80cc-d3e8167d3754" />
+  </Folder>
+  <Folder Name="/Student.Service/">
+    <Project Path="Student.Service.Api/Student.Service.Api.csproj" Id="f4d20122-ad0b-459b-8cc2-fa0155532dd1" />
+    <Project Path="Student.Service.Business/Student.Service.Business.csproj" Id="20ea1c84-c531-4672-8c25-4e0ec3ce3125" />
+    <Project Path="Student.Service.Core/Student.Service.Core.csproj" Id="52884d6c-393a-4932-bb75-fb7f730abafe" />
+    <Project Path="Student.Service.DataAccess/Student.Service.DataAccess.csproj" Id="a61ef9bb-541f-40ac-9826-d6f0413e2254" />
+  </Folder>
+  <Folder Name="/Teacher.Service/">
+    <Project Path="Teacher.Service.Api/Teacher.Service.Api.csproj" Id="f5cbc5e2-6bdb-4e9c-8a4e-073a05507a36" />
+    <Project Path="Teacher.Service.Business/Teacher.Service.Business.csproj" Id="6a46b6a8-2de5-438c-9750-2d820a1f3670" />
+    <Project Path="Teacher.Service.Core/Teacher.Service.Core.csproj" Id="deaca7e9-497e-4306-863f-2ba06306110b" />
+    <Project Path="Teacher.Service.DataAccess/Teacher.Service.DataAccess.csproj" Id="35f28869-1ac2-4e67-ba6b-2d5f7ce3fdf0" />
+  </Folder>
+  <Folder Name="/University.Service/">
+    <Project Path="University.Service.Api/University.Service.Api.csproj" />
+    <Project Path="University.Service.Business/University.Service.Business.csproj" />
+    <Project Path="University.Service.Core/University.Service.Core.csproj" />
+    <Project Path="University.Service.DataAccess/University.Service.DataAccess.csproj" />
+  </Folder>
+  <Folder Name="/User.Service/">
+    <Project Path="User.Servic.Business/User.Servic.Business.csproj" Id="34a734fc-538d-418f-8bda-fd15cf24eea2" />
+    <Project Path="User.Service.Api/User.Service.Api.csproj" Id="fc69d228-3dd0-438e-ab47-a9c87aeaa2af" />
+    <Project Path="User.Service.Core/User.Service.Core.csproj" Id="bf5978a1-dd49-4c88-aab5-430c272cb480" />
+    <Project Path="User.Service.DataAccess/User.Service.DataAccess.csproj" Id="49bcbfbb-58b3-4b5d-8efd-bab62c939473" />
+  </Folder>
+</Solution>

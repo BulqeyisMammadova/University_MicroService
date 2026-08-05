@@ -1,0 +1,31 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "ApiGateway\\ApiGateway.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Auth.Service.Api\\Auth.Service.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Student.Service.Api\\Student.Service.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Teacher.Service.Api\\Teacher.Service.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "University.Service.Api\\University.Service.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "User.Service.Api\\User.Service.Api.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

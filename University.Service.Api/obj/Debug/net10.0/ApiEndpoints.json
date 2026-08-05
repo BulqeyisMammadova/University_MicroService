@@ -1,0 +1,92 @@
+[
+  {
+    "ContainingType": "University.Service.Api.Controllers.UniversitiesController",
+    "Method": "GetAll",
+    "RelativePath": "api/Universities",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "PageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "University.Service.Api.Controllers.UniversitiesController",
+    "Method": "Create",
+    "RelativePath": "api/Universities",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "University.Service.Business.DTOs.UniversityCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "University.Service.Api.Controllers.UniversitiesController",
+    "Method": "GetById",
+    "RelativePath": "api/Universities/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "University.Service.Api.Controllers.UniversitiesController",
+    "Method": "Delete",
+    "RelativePath": "api/Universities/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "University.Service.Api.Controllers.UniversitiesController",
+    "Method": "Update",
+    "RelativePath": "api/Universities/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "universityUpdateDto",
+        "Type": "University.Service.Business.DTOs.UniversityCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
