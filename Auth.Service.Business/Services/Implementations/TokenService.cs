@@ -1,5 +1,4 @@
 ﻿using Auth.Service.Business.DTOs;
-using Auth.Service.Business.Extensions;
 using Auth.Service.Business.Services.Abstarctions;
 using Auth.Service.Business.Services.Abstractions;
 using System.Security.Claims;
@@ -23,18 +22,17 @@ public class TokenService : ITokenService
         {
             new(ClaimTypes.NameIdentifier, dto.UserId.ToString()),
             new(ClaimTypes.Email, dto.Email),
-            new(ClaimTypes.Role, dto.Role.ToString()) 
+            new(ClaimTypes.Role, dto.RoleName)
         };
 
-
-        foreach (var permission in dto.Role.GetPermissions())
+        foreach (var permission in dto.Permissions.Distinct())
         {
             claims.Add(new Claim("Permission", permission));
         }
 
         var token = _jwtService.CreateAccessToken(claims);
 
-        await _refreshStore.SaveAsync(token.RefreshToken, dto.UserId, dto.Email, dto.Role, TimeSpan.FromDays(7));
+        await _refreshStore.SaveAsync(token.RefreshToken, dto.UserId, dto.Email, dto.RoleName, dto.Permissions, TimeSpan.FromDays(7));
 
         return token;
     }

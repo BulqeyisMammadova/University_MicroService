@@ -14,6 +14,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRoleService, RoleService>();          
+builder.Services.AddScoped<IPermissionService, PermissionService>(); 
+
 
 //Zeng
 builder.Services.AddHttpClient<IAuthServiceClient, AuthServiceClient>(client =>
@@ -28,7 +31,16 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
+// ✅ Yeni əlavə: CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
@@ -37,6 +49,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+//: CORS middleware
+app.UseCors("AllowAll");
+
 
 app.UseHttpsRedirection();
 app.MapControllers();

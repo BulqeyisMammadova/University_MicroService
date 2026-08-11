@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{44A8DD7A-4216-4F1A-BE08-024007CF94F2}|ApiGateway\\ApiGateway.csproj|c:\\users\\balqeyis\\desktop\\universitysystem\\apigateway\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{44A8DD7A-4216-4F1A-BE08-024007CF94F2}|ApiGateway\\ApiGateway.csproj|solutionrelative:apigateway\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DAC4ED09-32FB-4A59-BFE6-4D16A4275FCE}|Auth.Service.Business\\Auth.Service.Business.csproj|c:\\users\\balqeyis\\desktop\\universitysystem\\auth.service.business\\services\\implementations\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DAC4ED09-32FB-4A59-BFE6-4D16A4275FCE}|Auth.Service.Business\\Auth.Service.Business.csproj|solutionrelative:auth.service.business\\services\\implementations\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DAC4ED09-32FB-4A59-BFE6-4D16A4275FCE}|Auth.Service.Business\\Auth.Service.Business.csproj|c:\\users\\balqeyis\\desktop\\universitysystem\\auth.service.business\\extensions\\roleextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DAC4ED09-32FB-4A59-BFE6-4D16A4275FCE}|Auth.Service.Business\\Auth.Service.Business.csproj|solutionrelative:auth.service.business\\extensions\\roleextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC69D228-3DD0-438E-AB47-A9C87AEAA2AF}|User.Service.Api\\User.Service.Api.csproj|c:\\users\\balqeyis\\desktop\\universitysystem\\user.service.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC69D228-3DD0-438E-AB47-A9C87AEAA2AF}|User.Service.Api\\User.Service.Api.csproj|solutionrelative:user.service.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,40 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\ApiGateway\\Program.cs",
-              "RelativeDocumentMoniker": "ApiGateway\\Program.cs",
-              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\ApiGateway\\Program.cs",
-              "RelativeToolTip": "ApiGateway\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.Api\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "User.Service.Api\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.Api\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "User.Service.Api\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAcwDYAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-22T06:43:58.227Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TokenService.cs",
-              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Auth.Service.Business\\Services\\Implementations\\TokenService.cs",
-              "RelativeDocumentMoniker": "Auth.Service.Business\\Services\\Implementations\\TokenService.cs",
-              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Auth.Service.Business\\Services\\Implementations\\TokenService.cs",
-              "RelativeToolTip": "Auth.Service.Business\\Services\\Implementations\\TokenService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-22T06:40:34.246Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RoleExtensions.cs",
-              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Auth.Service.Business\\Extensions\\RoleExtensions.cs",
-              "RelativeDocumentMoniker": "Auth.Service.Business\\Extensions\\RoleExtensions.cs",
-              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Auth.Service.Business\\Extensions\\RoleExtensions.cs",
-              "RelativeToolTip": "Auth.Service.Business\\Extensions\\RoleExtensions.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-22T06:28:38.188Z",
+              "WhenOpened": "2026-08-11T12:26:18.922Z",
               "EditorCaption": ""
             }
           ]

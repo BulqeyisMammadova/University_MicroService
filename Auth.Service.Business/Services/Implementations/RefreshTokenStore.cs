@@ -2,13 +2,13 @@
 using Auth.Service.Business.DTOs;
 using Auth.Service.Business.Services.Abstractions;
 using Auth.Service.Core.Entities;
-using Auth.Service.Core.Enums;
 using Auth.Service.DataAccess.Repositories.Abstarctions;
 
 namespace Auth.Service.Business.Services.Implementations;
 
 public class RefreshTokenStore : IRefreshTokenStore
 {
+    private const string Separator = "|";
     private readonly IUnitOfWork _unitOfWork;
 
     public RefreshTokenStore(IUnitOfWork unitOfWork)
@@ -16,14 +16,15 @@ public class RefreshTokenStore : IRefreshTokenStore
         _unitOfWork = unitOfWork;
     }
 
-    public async Task SaveAsync(string refreshToken, int userId, string email, Role role, TimeSpan expiry)
+    public async Task SaveAsync(string refreshToken, int userId, string email, string roleName, List<string> permissions, TimeSpan expiry)
     {
         var entity = new RefreshToken
         {
             Token = refreshToken,
             UserId = userId,
             Email = email,
-            Role = role,
+            RoleName = roleName,
+            Permissions = string.Join(Separator, permissions),
             ExpiresAt = DateTime.UtcNow.Add(expiry)
         };
 
@@ -38,7 +39,15 @@ public class RefreshTokenStore : IRefreshTokenStore
 
         if (entity == null || entity.ExpiresAt < DateTime.UtcNow) return null;
 
-        return new TokenRequestDto { UserId = entity.UserId, Email = entity.Email, Role = entity.Role };
+        return new TokenRequestDto
+        {
+            UserId = entity.UserId,
+            Email = entity.Email,
+            RoleName = entity.RoleName,
+            Permissions = entity.Permissions
+                .Split(Separator, StringSplitOptions.RemoveEmptyEntries)
+                .ToList()
+        };
     }
 
     public async Task RemoveAsync(string refreshToken)

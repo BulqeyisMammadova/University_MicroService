@@ -17,9 +17,8 @@ public class AppDbContext : DbContext
         {
             entity.Property(r => r.Token).IsRequired().HasMaxLength(500);
             entity.Property(r => r.Email).IsRequired().HasMaxLength(200);
-            entity.Property(r => r.Role)
-                  .HasConversion<string>()
-                  .HasMaxLength(50);
+            entity.Property(r => r.RoleName).IsRequired().HasMaxLength(100);
+            entity.Property(r => r.Permissions).HasMaxLength(2000);
             entity.HasIndex(r => r.Token).IsUnique();
         });
 
