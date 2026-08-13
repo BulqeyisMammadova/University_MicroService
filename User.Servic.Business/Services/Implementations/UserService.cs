@@ -1,15 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using User.Servic.Business.DTOs;
+using User.Servic.Business.DTOs.MailDtos;
+using User.Servic.Business.DTOs.PagitationsDtos;
+using User.Servic.Business.DTOs.PermissionDtos;
+using User.Servic.Business.DTOs.TokenDtos;
+using User.Servic.Business.DTOs.UserDtos;
 using User.Servic.Business.Services.Abstractions;
-using User.Service.Business.DTOs;
 using User.Service.Business.Extensions;
 using User.Service.Business.Services.Abstractions;
-using User.Service.Core.Entities;
 using User.Service.DataAccess.Repositories.Abstarctions;
+using User.Service.Core.Entities.Entity;
+using User.Service.Core.Entities.Enum;
 
 namespace User.Service.Business.Services.Implementations;
 
-public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceClient) : IUserService
+public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceClient, IEmailService emailService) : IUserService
 {
     public async Task<UserDto> RegisterAsync(RegisterDto dto)
     {
@@ -19,7 +23,7 @@ public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceC
         if (dto.RoleIds.Count == 0)
             throw new InvalidOperationException("Role not selected.");
 
-        var user = new Core.Entities.User
+        var user = new Core.Entities.Entity.User
         {
             FullName = dto.FullName,
             Email = dto.Email,
@@ -43,6 +47,22 @@ public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceC
 
         await unitOfWork.SaveChangesAsync();
 
+        
+        var token = Guid.NewGuid().ToString().Substring(0, 4);
+
+        await unitOfWork.VerificationTokens.AddAsync(new VerificationToken
+        {
+            UserId = user.Id,
+            Token = token,
+            Type = VerificationTokenType.EmailConfirmation,
+            ExpiresAt = DateTime.UtcNow.AddHours(24)
+        });
+        await unitOfWork.SaveChangesAsync();
+
+
+        await emailService.SendEmailAsync(user.Email, "Verify your account",
+            $"<p>To verify your account  <b>{token}</b></p>");
+       ;
         return new UserDto
         {
             Id = user.Id,
@@ -51,35 +71,50 @@ public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceC
             IsActive = user.IsActive,
             Roles = roleNames
         };
-    }
 
+    }
+    
     public async Task<AccessTokenDto?> LoginAsync(LoginDto dto)
     {
         var user = await unitOfWork.Users.Query()
-            .Include(u => u.UserRoles.Where(ur => ur.IsActive))
-                .ThenInclude(ur => ur.Role)
-                    .ThenInclude(r => r.RolePermissions.Where(rp => rp.IsActive))
-                        .ThenInclude(rp => rp.Permission)
             .FirstOrDefaultAsync(u => u.Email == dto.Email && u.IsActive);
 
         if (user == null) return null;
 
+        var isConfirmed = await unitOfWork.Users.Query()
+            .Where(u => u.Id == user.Id)
+            .Select(u => u.IsEmailConfirmed)
+            .FirstOrDefaultAsync();
+
+        if (!isConfirmed) return null; 
+
         var passwordOk = BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash);
         if (!passwordOk) return null;
+
+        var activeRoleIds = await unitOfWork.UserRoles.Query()
+            .Where(ur => ur.UserId == user.Id && ur.IsActive)
+            .Select(ur => ur.RoleId)
+            .ToListAsync();
 
         var roleNames = new List<string>();
         var permissionNames = new List<string>();
 
-        foreach (var userRole in user.UserRoles)
+        foreach (var roleId in activeRoleIds)
         {
-            if (!userRole.Role.IsActive) continue;
+            var role = await unitOfWork.Roles.GetByIdAsync(roleId);
+            if (role == null || !role.IsActive) continue;
 
-            roleNames.Add(userRole.Role.Name);
+            roleNames.Add(role.Name);
 
-            foreach (var rolePermission in userRole.Role.RolePermissions)
+            var permissions = await unitOfWork.RolePermissions.Query()
+                .Where(rp => rp.RoleId == roleId && rp.IsActive && rp.Permission.IsActive)
+                .Select(rp => rp.Permission.Name)
+                .ToListAsync();
+
+            foreach (var permissionName in permissions)
             {
-                if (!permissionNames.Contains(rolePermission.Permission.Name))
-                    permissionNames.Add(rolePermission.Permission.Name);
+                if (!permissionNames.Contains(permissionName))
+                    permissionNames.Add(permissionName);
             }
         }
 
@@ -90,7 +125,7 @@ public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceC
 
     public async Task<PagedResultDto<UserDto>> GetAllUsersAsync(UserPaginationParams p)
     {
-        IQueryable<Core.Entities.User> query = unitOfWork.Users.Query();
+        IQueryable<Core.Entities.Entity.User> query = unitOfWork.Users.Query();
 
         if (!string.IsNullOrWhiteSpace(p.Name))
             query = query.Where(u => u.FullName.Contains(p.Name));
@@ -106,7 +141,7 @@ public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceC
 
         foreach (var u in pagedUsers.Items)
         {
-            var roleNames = await unitOfWork.UserRoles.Query()
+            var activeRoleNames = await unitOfWork.UserRoles.Query()
                 .Where(ur => ur.UserId == u.Id && ur.IsActive && ur.Role.IsActive)
                 .Select(ur => ur.Role.Name)
                 .ToListAsync();
@@ -117,7 +152,8 @@ public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceC
                 FullName = u.FullName,
                 Email = u.Email,
                 IsActive = u.IsActive,
-                Roles = roleNames
+                IsConfirmed = u.IsEmailConfirmed,
+                Roles = activeRoleNames
             });
         }
 
@@ -127,6 +163,51 @@ public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceC
             TotalCount = pagedUsers.TotalCount,
             PageNumber = pagedUsers.PageNumber,
             PageSize = pagedUsers.PageSize
+        };
+    }
+
+    public async Task<GetUserDto?> GetByIdAsync(int id)
+    {
+        var user = await unitOfWork.Users.GetByIdAsync(id);
+        if (user == null) return null;
+
+        var userRoles = await unitOfWork.UserRoles.Query()
+            .Where(ur => ur.UserId == id)
+            .ToListAsync();
+
+        var roles = new List<UserRoleDto>();
+
+        foreach (var userRole in userRoles)
+        {
+            var role = await unitOfWork.Roles.GetByIdAsync(userRole.RoleId);
+            if (role == null) continue;
+
+            var permissions = await unitOfWork.RolePermissions.Query()
+                .Where(rp => rp.RoleId == role.Id)
+                .Select(rp => new PermissionDto
+                {
+                    Id = rp.Permission.Id,
+                    Name = rp.Permission.Name,
+                    IsActive = rp.IsActive
+                })
+                .ToListAsync();
+
+            roles.Add(new UserRoleDto
+            {
+                RoleId = role.Id,
+                RoleName = role.Name,
+                IsActive = userRole.IsActive,
+                Permissions = permissions
+            });
+        }
+
+        return new GetUserDto
+        {
+            Id = user.Id,
+            FullName = user.FullName,
+            Email = user.Email,
+            IsActive = user.IsActive,
+            Roles = roles
         };
     }
 
@@ -144,7 +225,7 @@ public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceC
         await unitOfWork.SaveChangesAsync();
 
         var roleNames = await unitOfWork.UserRoles.Query()
-            .Where(ur => ur.UserId == id && ur.IsActive)
+            .Where(ur => ur.UserId == id && ur.IsActive && ur.Role.IsActive)
             .Select(ur => ur.Role.Name)
             .ToListAsync();
 
@@ -207,4 +288,69 @@ public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceC
         await unitOfWork.SaveChangesAsync();
         return true;
     }
+
+    public async Task<bool> ConfirmEmailAsync(ConfirmMailDto dto)
+    {
+        var token = await unitOfWork.VerificationTokens.Query()
+            .FirstOrDefaultAsync(t => t.Token == dto.Token
+                && t.Type == VerificationTokenType.EmailConfirmation
+                && !t.IsUsed
+                && t.ExpiresAt > DateTime.UtcNow);
+
+        if (token == null) return false;
+
+        var user = await unitOfWork.Users.GetByIdAsync(token.UserId);
+        if (user == null) return false;
+
+        user.IsEmailConfirmed = true;
+        unitOfWork.Users.Update(user);
+
+        token.IsUsed = true;
+        unitOfWork.VerificationTokens.Update(token);
+
+        await unitOfWork.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task ForgotPasswordAsync(ForgotPasswordDto dto)
+    {
+        var user =await unitOfWork.Users.Query()
+            .FirstOrDefaultAsync(u => u.Email == dto.Email && u.IsActive);
+        if (user == null) return;
+
+        var token = Guid.NewGuid().ToString().Substring(0, 4);
+        await unitOfWork.VerificationTokens.AddAsync(new VerificationToken
+        {
+            UserId = user.Id,
+            Token = token,
+            Type = VerificationTokenType.PasswordReset,
+            ExpiresAt = DateTime.UtcNow.AddHours(1),
+        });
+        await unitOfWork.SaveChangesAsync();
+
+        await emailService.SendEmailAsync(user.Email,"Reset Password",
+            $"<p>To reset your password, click <b>{token}</b></p>");
+    }
+
+    public async Task<bool> ResetPasswordAsync(ResetPasswordDto dto)
+    {
+        var token = await unitOfWork.VerificationTokens.Query().
+            FirstOrDefaultAsync(t=> t.Token == dto.Token 
+            && t.Type == VerificationTokenType.PasswordReset
+            && !t.IsUsed
+            && t.ExpiresAt > DateTime.UtcNow);
+        if(token == null) return false;
+
+        var user = await unitOfWork.Users.GetByIdAsync(token.UserId);
+        if (user == null) return false;
+
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
+        unitOfWork.Users.Update(user);
+
+        token.IsUsed = true;
+        unitOfWork.VerificationTokens.Update(token);
+        await unitOfWork.SaveChangesAsync();
+        return true;
+    }
 }
+

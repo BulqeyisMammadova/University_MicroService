@@ -1,4 +1,4 @@
-﻿using User.Service.Business.DTOs;
+﻿using User.Servic.Business.DTOs.TokenDtos;
 
 namespace User.Servic.Business.Services.Abstractions;
 

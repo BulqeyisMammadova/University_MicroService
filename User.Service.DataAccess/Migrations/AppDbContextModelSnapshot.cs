@@ -22,7 +22,7 @@ namespace User.Service.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("User.Service.Core.Entities.Permission", b =>
+            modelBuilder.Entity("User.Service.Core.Entities.Entity.Permission", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,7 +46,7 @@ namespace User.Service.DataAccess.Migrations
                     b.ToTable("Permissions");
                 });
 
-            modelBuilder.Entity("User.Service.Core.Entities.Role", b =>
+            modelBuilder.Entity("User.Service.Core.Entities.Entity.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,7 +70,7 @@ namespace User.Service.DataAccess.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("User.Service.Core.Entities.RolePermission", b =>
+            modelBuilder.Entity("User.Service.Core.Entities.Entity.RolePermission", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,7 +97,7 @@ namespace User.Service.DataAccess.Migrations
                     b.ToTable("RolePermissions");
                 });
 
-            modelBuilder.Entity("User.Service.Core.Entities.User", b =>
+            modelBuilder.Entity("User.Service.Core.Entities.Entity.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -121,6 +121,9 @@ namespace User.Service.DataAccess.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsEmailConfirmed")
+                        .HasColumnType("bit");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -133,7 +136,7 @@ namespace User.Service.DataAccess.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("User.Service.Core.Entities.UserRole", b =>
+            modelBuilder.Entity("User.Service.Core.Entities.Entity.UserRole", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -160,15 +163,50 @@ namespace User.Service.DataAccess.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("User.Service.Core.Entities.RolePermission", b =>
+            modelBuilder.Entity("User.Service.Core.Entities.Entity.VerificationToken", b =>
                 {
-                    b.HasOne("User.Service.Core.Entities.Permission", "Permission")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Token")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("VerificationTokens");
+                });
+
+            modelBuilder.Entity("User.Service.Core.Entities.Entity.RolePermission", b =>
+                {
+                    b.HasOne("User.Service.Core.Entities.Entity.Permission", "Permission")
                         .WithMany("RolePermissions")
                         .HasForeignKey("PermissionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("User.Service.Core.Entities.Role", "Role")
+                    b.HasOne("User.Service.Core.Entities.Entity.Role", "Role")
                         .WithMany("RolePermissions")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -179,15 +217,15 @@ namespace User.Service.DataAccess.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("User.Service.Core.Entities.UserRole", b =>
+            modelBuilder.Entity("User.Service.Core.Entities.Entity.UserRole", b =>
                 {
-                    b.HasOne("User.Service.Core.Entities.Role", "Role")
+                    b.HasOne("User.Service.Core.Entities.Entity.Role", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("User.Service.Core.Entities.User", "User")
+                    b.HasOne("User.Service.Core.Entities.Entity.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -198,19 +236,30 @@ namespace User.Service.DataAccess.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("User.Service.Core.Entities.Permission", b =>
+            modelBuilder.Entity("User.Service.Core.Entities.Entity.VerificationToken", b =>
+                {
+                    b.HasOne("User.Service.Core.Entities.Entity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("User.Service.Core.Entities.Entity.Permission", b =>
                 {
                     b.Navigation("RolePermissions");
                 });
 
-            modelBuilder.Entity("User.Service.Core.Entities.Role", b =>
+            modelBuilder.Entity("User.Service.Core.Entities.Entity.Role", b =>
                 {
                     b.Navigation("RolePermissions");
 
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("User.Service.Core.Entities.User", b =>
+            modelBuilder.Entity("User.Service.Core.Entities.Entity.User", b =>
                 {
                     b.Navigation("UserRoles");
                 });

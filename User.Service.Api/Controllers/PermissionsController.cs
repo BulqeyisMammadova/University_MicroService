@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using User.Servic.Business.DTOs;
-using User.Service.Business.DTOs;
+using User.Servic.Business.DTOs.PagitationsDtos;
+using User.Servic.Business.DTOs.PermissionDtos;
 using User.Service.Business.Services.Abstractions;
 
 namespace User.Service.Api.Controllers;

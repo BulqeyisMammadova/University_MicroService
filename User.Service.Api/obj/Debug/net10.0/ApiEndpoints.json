@@ -35,7 +35,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "User.Service.Business.DTOs.PermissionCreateDto",
+        "Type": "User.Servic.Business.DTOs.PermissionDtos.PermissionCreateDto",
         "IsRequired": true
       }
     ],
@@ -72,7 +72,7 @@
       },
       {
         "Name": "dto",
-        "Type": "User.Service.Business.DTOs.PermissionUpdateDto",
+        "Type": "User.Servic.Business.DTOs.PermissionDtos.PermissionUpdateDto",
         "IsRequired": true
       }
     ],
@@ -146,7 +146,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "User.Service.Business.DTOs.RoleCreateDto",
+        "Type": "User.Servic.Business.DTOs.RoleDtos.RoleCreateDto",
         "IsRequired": true
       }
     ],
@@ -183,7 +183,7 @@
       },
       {
         "Name": "dto",
-        "Type": "User.Service.Business.DTOs.RoleUpdateDto",
+        "Type": "User.Servic.Business.DTOs.RoleDtos.RoleUpdateDto",
         "IsRequired": true
       }
     ],
@@ -312,6 +312,22 @@
   },
   {
     "ContainingType": "User.Service.Api.Controllers.UsersController",
+    "Method": "GetById",
+    "RelativePath": "api/Users/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "User.Service.Api.Controllers.UsersController",
     "Method": "Update",
     "RelativePath": "api/Users/{id}",
     "HttpMethod": "PUT",
@@ -391,6 +407,38 @@
   },
   {
     "ContainingType": "User.Service.Api.Controllers.UsersController",
+    "Method": "ConfirmEmail",
+    "RelativePath": "api/Users/confirm-email",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "User.Servic.Business.DTOs.MailDtos.ConfirmMailDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "User.Service.Api.Controllers.UsersController",
+    "Method": "ForgotPassword",
+    "RelativePath": "api/Users/forgot-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "User.Servic.Business.DTOs.MailDtos.ForgotPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "User.Service.Api.Controllers.UsersController",
     "Method": "Login",
     "RelativePath": "api/Users/login",
     "HttpMethod": "POST",
@@ -399,7 +447,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "User.Service.Business.DTOs.LoginDto",
+        "Type": "User.Servic.Business.DTOs.UserDtos.LoginDto",
         "IsRequired": true
       }
     ],
@@ -416,6 +464,22 @@
       {
         "Name": "dto",
         "Type": "RegisterDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "User.Service.Api.Controllers.UsersController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/Users/reset-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "User.Servic.Business.DTOs.MailDtos.ResetPasswordDto",
         "IsRequired": true
       }
     ],

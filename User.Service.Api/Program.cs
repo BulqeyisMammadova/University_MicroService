@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using User.Servic.Business.Options;
 using User.Servic.Business.Services.Abstractions;
+using User.Servic.Business.Services.Implementations;
 using User.Service.Business.Clients.Implementations;
 using User.Service.Business.Services.Abstractions;
 using User.Service.Business.Services.Implementations;
@@ -12,10 +14,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+
+builder.Services.Configure<MailOptions>(builder.Configuration.GetSection("MailOptions"));
+
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();          
 builder.Services.AddScoped<IPermissionService, PermissionService>(); 
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 
 //Zeng

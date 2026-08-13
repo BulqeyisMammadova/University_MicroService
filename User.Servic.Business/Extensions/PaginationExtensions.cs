@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using User.Servic.Business.DTOs;
-using User.Service.Business.DTOs;
+using User.Servic.Business.DTOs.PagitationsDtos;
 
 namespace User.Service.Business.Extensions;
 

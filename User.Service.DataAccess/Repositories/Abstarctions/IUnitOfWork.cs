@@ -1,13 +1,15 @@
-﻿using User.Service.Core.Entities;
+﻿using User.Service.Core.Entities.Entity;
 
 namespace User.Service.DataAccess.Repositories.Abstarctions;
 
 public interface IUnitOfWork
 {
-    IGenericRepository<User.Service.Core.Entities.User> Users { get; }
+    IGenericRepository<Core.Entities.Entity.User> Users { get; }
     IGenericRepository<Role> Roles { get; }
     IGenericRepository<Permission> Permissions { get; }
     IGenericRepository<RolePermission> RolePermissions { get; }
     IGenericRepository<UserRole> UserRoles { get; }
+    IGenericRepository<VerificationToken> VerificationTokens { get; }   
+
     Task<int> SaveChangesAsync();
 }

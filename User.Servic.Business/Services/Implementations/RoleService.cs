@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using User.Servic.Business.DTOs;
-using User.Service.Business.DTOs;
+using User.Servic.Business.DTOs.PagitationsDtos;
+using User.Servic.Business.DTOs.PermissionDtos;
+using User.Servic.Business.DTOs.RoleDtos;
 using User.Service.Business.Extensions;
 using User.Service.Business.Services.Abstractions;
 using User.Service.Core.Entities;
+using User.Service.Core.Entities.Entity;
 using User.Service.DataAccess.Repositories.Abstarctions;
 
 namespace User.Service.Business.Services.Implementations;
@@ -25,9 +27,14 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
 
         foreach (var role in pagedRoles.Items)
         {
-            var permissionNames = await unitOfWork.RolePermissions.Query()
-                .Where(rp => rp.RoleId == role.Id && rp.IsActive && rp.Permission.IsActive)
-                .Select(rp => rp.Permission.Name)
+            var permissions = await unitOfWork.RolePermissions.Query()
+                .Where(rp => rp.RoleId == role.Id)
+                .Select(rp => new PermissionDto
+                {
+                    Id = rp.Permission.Id,
+                    Name = rp.Permission.Name,
+                    IsActive = rp.IsActive
+                })
                 .ToListAsync();
 
             items.Add(new RoleDto
@@ -35,7 +42,7 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
                 Id = role.Id,
                 Name = role.Name,
                 IsActive = role.IsActive,
-                Permissions = permissionNames
+                Permissions = permissions
             });
         }
 
@@ -53,13 +60,18 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
         var role = await unitOfWork.Roles.GetByIdAsync(id);
         if (role == null) return null;
 
-        var permissionNames = await unitOfWork.RolePermissions.Query()
-            .Where(rp => rp.RoleId == id && rp.IsActive && rp.Permission.IsActive)
-            .Select(rp => rp.Permission.Name)
-            .OrderBy(name => name)
+        var permissions = await unitOfWork.RolePermissions.Query()
+            .Where(rp => rp.RoleId == id)
+            .Select(rp => new PermissionDto
+            {
+                Id = rp.Permission.Id,
+                Name = rp.Permission.Name,
+                IsActive = rp.IsActive
+            })
+            .OrderBy(p => p.Name)
             .ToListAsync();
 
-        return new RoleDto { Id = role.Id, Name = role.Name, IsActive = role.IsActive, Permissions = permissionNames };
+        return new RoleDto { Id = role.Id, Name = role.Name, IsActive = role.IsActive, Permissions = permissions };
     }
 
     public async Task<RoleDto> CreateAsync(RoleCreateDto dto)
@@ -71,20 +83,27 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
         await unitOfWork.Roles.AddAsync(role);
         await unitOfWork.SaveChangesAsync();
 
-        var permissionNames = new List<string>();
+        var permissions = new List<PermissionDto>();
 
         foreach (var permissionId in dto.PermissionIds.Distinct())
         {
             var permission = await unitOfWork.Permissions.GetByIdAsync(permissionId);
             if (permission == null) continue;
 
-            await unitOfWork.RolePermissions.AddAsync(new RolePermission { RoleId = role.Id, PermissionId = permissionId });
-            permissionNames.Add(permission.Name);
+            var rolePermission = new RolePermission { RoleId = role.Id, PermissionId = permissionId };
+            await unitOfWork.RolePermissions.AddAsync(rolePermission);
+
+            permissions.Add(new PermissionDto
+            {
+                Id = permission.Id,
+                Name = permission.Name,
+                IsActive = rolePermission.IsActive
+            });
         }
 
         await unitOfWork.SaveChangesAsync();
 
-        return new RoleDto { Id = role.Id, Name = role.Name, IsActive = role.IsActive, Permissions = permissionNames };
+        return new RoleDto { Id = role.Id, Name = role.Name, IsActive = role.IsActive, Permissions = permissions };
     }
 
     public async Task<RoleDto?> UpdateAsync(int id, RoleUpdateDto dto)
@@ -99,12 +118,17 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
         unitOfWork.Roles.Update(role);
         await unitOfWork.SaveChangesAsync();
 
-        var permissionNames = await unitOfWork.RolePermissions.Query()
-            .Where(rp => rp.RoleId == id && rp.IsActive)
-            .Select(rp => rp.Permission.Name)
+        var permissions = await unitOfWork.RolePermissions.Query()
+            .Where(rp => rp.RoleId == id)
+            .Select(rp => new PermissionDto
+            {
+                Id = rp.Permission.Id,
+                Name = rp.Permission.Name,
+                IsActive = rp.IsActive
+            })
             .ToListAsync();
 
-        return new RoleDto { Id = role.Id, Name = role.Name, IsActive = role.IsActive, Permissions = permissionNames };
+        return new RoleDto { Id = role.Id, Name = role.Name, IsActive = role.IsActive, Permissions = permissions };
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -140,12 +164,12 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
     public async Task<List<PermissionDto>> GetRolePermissionsAsync(int roleId)
     {
         return await unitOfWork.RolePermissions.Query()
-            .Where(rp => rp.RoleId == roleId && rp.IsActive && rp.Permission.IsActive)
+            .Where(rp => rp.RoleId == roleId)
             .Select(rp => new PermissionDto
             {
                 Id = rp.Permission.Id,
                 Name = rp.Permission.Name,
-                IsActive = rp.Permission.IsActive
+                IsActive = rp.IsActive
             })
             .ToListAsync();
     }

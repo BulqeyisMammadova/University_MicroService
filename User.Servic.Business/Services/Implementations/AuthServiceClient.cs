@@ -1,8 +1,8 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using User.Servic.Business.DTOs.TokenDtos;
 using User.Servic.Business.Services.Abstractions;
-using User.Service.Business.DTOs;
 
 namespace User.Service.Business.Clients.Implementations;
 

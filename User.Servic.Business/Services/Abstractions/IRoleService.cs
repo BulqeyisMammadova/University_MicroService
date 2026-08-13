@@ -1,5 +1,6 @@
-﻿using User.Servic.Business.DTOs;
-using User.Service.Business.DTOs;
+﻿using User.Servic.Business.DTOs.PagitationsDtos;
+using User.Servic.Business.DTOs.PermissionDtos;
+using User.Servic.Business.DTOs.RoleDtos;
 
 namespace User.Service.Business.Services.Abstractions;
 

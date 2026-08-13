@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.DataAccess\\Migrations\\20260811121128_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:User.Service.DataAccess\\Migrations\\20260811121128_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC69D228-3DD0-438E-AB47-A9C87AEAA2AF}|User.Service.Api\\User.Service.Api.csproj|c:\\users\\balqeyis\\desktop\\universitysystem\\user.service.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC69D228-3DD0-438E-AB47-A9C87AEAA2AF}|User.Service.Api\\User.Service.Api.csproj|solutionrelative:user.service.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC69D228-3DD0-438E-AB47-A9C87AEAA2AF}|User.Service.Api\\User.Service.Api.csproj|c:\\users\\balqeyis\\desktop\\universitysystem\\user.service.api\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC69D228-3DD0-438E-AB47-A9C87AEAA2AF}|User.Service.Api\\User.Service.Api.csproj|solutionrelative:user.service.api\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{34A734FC-538D-418F-8BDA-FD15CF24EEA2}|User.Servic.Business\\User.Servic.Business.csproj|c:\\users\\balqeyis\\desktop\\universitysystem\\user.servic.business\\services\\implementations\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{34A734FC-538D-418F-8BDA-FD15CF24EEA2}|User.Servic.Business\\User.Servic.Business.csproj|solutionrelative:user.servic.business\\services\\implementations\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,40 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "20260811121128_InitialCreate.cs",
-              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.DataAccess\\Migrations\\20260811121128_InitialCreate.cs",
-              "RelativeDocumentMoniker": "User.Service.DataAccess\\Migrations\\20260811121128_InitialCreate.cs",
-              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.DataAccess\\Migrations\\20260811121128_InitialCreate.cs",
-              "RelativeToolTip": "User.Service.DataAccess\\Migrations\\20260811121128_InitialCreate.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Servic.Business\\Services\\Implementations\\UserService.cs",
+              "RelativeDocumentMoniker": "User.Servic.Business\\Services\\Implementations\\UserService.cs",
+              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Servic.Business\\Services\\Implementations\\UserService.cs*",
+              "RelativeToolTip": "User.Servic.Business\\Services\\Implementations\\UserService.cs*",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAowD4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-11T12:11:28.695Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.Api\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "User.Service.Api\\Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.Api\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "User.Service.Api\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAAcwEYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-11T12:09:07.784Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RolesController.cs",
-              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.Api\\Controllers\\RolesController.cs",
-              "RelativeDocumentMoniker": "User.Service.Api\\Controllers\\RolesController.cs",
-              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.Api\\Controllers\\RolesController.cs",
-              "RelativeToolTip": "User.Service.Api\\Controllers\\RolesController.cs",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-11T12:08:45.748Z",
+              "WhenOpened": "2026-08-13T09:09:30.733Z",
               "EditorCaption": ""
             }
           ]

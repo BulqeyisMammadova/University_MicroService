@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using User.Servic.Business.DTOs;
-using User.Service.Business.DTOs;
+using User.Servic.Business.DTOs.PagitationsDtos;
+using User.Servic.Business.DTOs.PermissionDtos;
 using User.Service.Business.Extensions;
 using User.Service.Business.Services.Abstractions;
-using User.Service.Core.Entities;
+using User.Service.Core.Entities.Entity;
 using User.Service.DataAccess.Repositories.Abstarctions;
 
 namespace User.Service.Business.Services.Implementations;
@@ -12,7 +12,7 @@ public class PermissionService(IUnitOfWork unitOfWork) : IPermissionService
 {
     public async Task<PagedResultDto<PermissionDto>> GetAllAsync(PaginationParams p)
     {
-        var query = unitOfWork.Permissions.Query().Where(x => x.IsActive);
+        IQueryable<Permission> query = unitOfWork.Permissions.Query();
 
         if (!string.IsNullOrWhiteSpace(p.Name))
             query = query.Where(x => x.Name.Contains(p.Name));
@@ -23,22 +23,22 @@ public class PermissionService(IUnitOfWork unitOfWork) : IPermissionService
             .ToPagedResultAsync(p.PageNumber, p.PageSize);
     }
 
-    public async Task<PermissionDto> CreateAsync(PermissionCreateDto dto)
-    {
-        var exists = await unitOfWork.Permissions.Query().AnyAsync(p => p.Name == dto.Name);
-        if (exists) throw new Exception("This permission already exists.");
-
-        var permission = new Permission { Name = dto.Name };
-        await unitOfWork.Permissions.AddAsync(permission);
-        await unitOfWork.SaveChangesAsync();
-
-        return new PermissionDto { Id = permission.Id, Name = permission.Name, IsActive = permission.IsActive };
-    }
-
     public async Task<PermissionDto?> GetByIdAsync(int id)
     {
         var permission = await unitOfWork.Permissions.GetByIdAsync(id);
         if (permission == null) return null;
+
+        return new PermissionDto { Id = permission.Id, Name = permission.Name, IsActive = permission.IsActive };
+    }
+
+    public async Task<PermissionDto> CreateAsync(PermissionCreateDto dto)
+    {
+        var exists = await unitOfWork.Permissions.Query().AnyAsync(p => p.Name == dto.Name);
+        if (exists) throw new InvalidOperationException("This permission already exists.");
+
+        var permission = new Permission { Name = dto.Name};
+        await unitOfWork.Permissions.AddAsync(permission);
+        await unitOfWork.SaveChangesAsync();
 
         return new PermissionDto { Id = permission.Id, Name = permission.Name, IsActive = permission.IsActive };
     }
@@ -49,14 +49,14 @@ public class PermissionService(IUnitOfWork unitOfWork) : IPermissionService
         if (permission == null) return null;
 
         var nameTaken = await unitOfWork.Permissions.Query().AnyAsync(p => p.Name == dto.Name && p.Id != id);
-        if (nameTaken) throw new Exception("This permission name already exists.");
+        if (nameTaken) throw new InvalidOperationException("This permission name already exists.");
 
         permission.Name = dto.Name;
-       
+        permission.IsActive = dto.IsActive;
         unitOfWork.Permissions.Update(permission);
         await unitOfWork.SaveChangesAsync();
 
-        return new PermissionDto { Id = permission.Id, Name = permission.Name,  IsActive = permission.IsActive };
+        return new PermissionDto { Id = permission.Id, Name = permission.Name, IsActive = permission.IsActive };
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -75,7 +75,7 @@ public class PermissionService(IUnitOfWork unitOfWork) : IPermissionService
         var permission = await unitOfWork.Permissions.GetByIdAsync(id);
         if (permission == null) return false;
 
-        unitOfWork.Permissions.Delete(permission);  
+        unitOfWork.Permissions.Delete(permission);
         await unitOfWork.SaveChangesAsync();
         return true;
     }
