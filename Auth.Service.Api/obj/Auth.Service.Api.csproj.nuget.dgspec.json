@@ -67,6 +67,10 @@
               "target": "Package",
               "version": "[10.0.10, )"
             },
+            "NLog.Web.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[10.2.3, )"
@@ -565,6 +569,10 @@
             "BCrypt.Net-Next": {
               "target": "Package",
               "version": "[4.2.0, )"
+            },
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.3.12, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",

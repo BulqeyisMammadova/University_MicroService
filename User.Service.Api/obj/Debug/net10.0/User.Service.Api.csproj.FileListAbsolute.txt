@@ -168,3 +168,7 @@ C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Api\obj\Debug\net10.0\re
 C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Api\obj\Debug\net10.0\User.Service.Api.pdb
 C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Api\obj\Debug\net10.0\User.Service.Api.genruntimeconfig.cache
 C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Api\obj\Debug\net10.0\ref\User.Service.Api.dll
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Api\bin\Debug\net10.0\nlog.config
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Api\bin\Debug\net10.0\NLog.dll
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Api\bin\Debug\net10.0\NLog.Extensions.Logging.dll
+C:\Users\Balqeyis\Desktop\UniversitySystem\User.Service.Api\bin\Debug\net10.0\NLog.Web.AspNetCore.dll

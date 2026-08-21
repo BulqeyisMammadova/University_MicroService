@@ -11,6 +11,7 @@
         }
       ]
     },
+
     {
       "UpstreamPathTemplate": "/gateway/users/register",
       "UpstreamHttpMethod": [ "POST" ],
@@ -36,6 +37,43 @@
       ]
     },
     {
+      "UpstreamPathTemplate": "/gateway/users/confirm-email",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/api/users/confirm-email",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5276
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/users/forgot-password",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/api/users/forgot-password",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5276
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/users/reset-password",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/api/users/reset-password",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5276
+        }
+      ]
+    },
+
+    {
       "UpstreamPathTemplate": "/gateway/users",
       "UpstreamHttpMethod": [ "GET" ],
       "DownstreamPathTemplate": "/api/users",
@@ -53,42 +91,9 @@
       "RouteClaimsRequirement": { "Permission": "users.view" }
     },
     {
-      "UpstreamPathTemplate": "/gateway/users/{id}/all-permissions",
-      "UpstreamHttpMethod": [ "GET" ],
-      "DownstreamPathTemplate": "/api/users/{id}/all-permissions",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5276
-        }
-      ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": { "Permission": "users.view" }
-    },
-    {
-      "UpstreamPathTemplate": "/gateway/users/{id}/permissions",
-      "UpstreamHttpMethod": [ "GET" ],
-      "DownstreamPathTemplate": "/api/users/{id}/permissions",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5276
-        }
-      ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": { "Permission": "users.view" }
-    },
-    {
-      "UpstreamPathTemplate": "/gateway/users/{id}/permissions/{permissionId}",
-      "DownstreamPathTemplate": "/api/users/{id}/permissions/{permissionId}",
+      "UpstreamPathTemplate": "/gateway/users/{id}/roles/{roleId}",
+      "UpstreamHttpMethod": [ "POST", "DELETE" ],
+      "DownstreamPathTemplate": "/api/users/{id}/roles/{roleId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -104,7 +109,24 @@
     },
     {
       "UpstreamPathTemplate": "/gateway/users/{id}",
-      "UpstreamHttpMethod": [ "DELETE" ],
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/users/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5276
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "users.view" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/users/{id}",
+      "UpstreamHttpMethod": [ "PUT", "DELETE" ],
       "DownstreamPathTemplate": "/api/users/{id}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -119,8 +141,10 @@
       },
       "RouteClaimsRequirement": { "Permission": "users.manage" }
     },
+
     {
       "UpstreamPathTemplate": "/gateway/roles/{id}/permissions/{permissionId}",
+      "UpstreamHttpMethod": [ "POST", "DELETE" ],
       "DownstreamPathTemplate": "/api/roles/{id}/permissions/{permissionId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -203,6 +227,7 @@
       },
       "RouteClaimsRequirement": { "Permission": "users.manage" }
     },
+
     {
       "UpstreamPathTemplate": "/gateway/permissions/{id}/permanent",
       "UpstreamHttpMethod": [ "DELETE" ],
@@ -254,6 +279,7 @@
       },
       "RouteClaimsRequirement": { "Permission": "users.manage" }
     },
+
     {
       "UpstreamPathTemplate": "/gateway/universities/{everything}",
       "UpstreamHttpMethod": [ "GET" ],
@@ -288,8 +314,10 @@
       },
       "RouteClaimsRequirement": { "Permission": "universities.manage" }
     },
+
     {
       "UpstreamPathTemplate": "/gateway/teachers/{teacherId}/phones/{everything}",
+      "UpstreamHttpMethod": [ "POST", "DELETE" ],
       "DownstreamPathTemplate": "/api/teachers/{teacherId}/phones/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -338,6 +366,7 @@
       },
       "RouteClaimsRequirement": { "Permission": "teachers.manage" }
     },
+
     {
       "UpstreamPathTemplate": "/gateway/subjects/{everything}",
       "UpstreamHttpMethod": [ "GET" ],
@@ -372,6 +401,7 @@
       },
       "RouteClaimsRequirement": { "Permission": "subjects.manage" }
     },
+
     {
       "UpstreamPathTemplate": "/gateway/students/{everything}",
       "UpstreamHttpMethod": [ "GET" ],
@@ -405,40 +435,6 @@
         "AllowedScopes": []
       },
       "RouteClaimsRequirement": { "Permission": "students.manage" }
-    },
-    {
-      "UpstreamPathTemplate": "/gateway/users/{id}/all-permissions",
-      "UpstreamHttpMethod": [ "GET" ],
-      "DownstreamPathTemplate": "/api/users/{id}/all-permissions",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5276
-        }
-      ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": { "Permission": "users.view" }
-    },
-    {
-      "UpstreamPathTemplate": "/gateway/users",
-      "UpstreamHttpMethod": [ "GET" ],
-      "DownstreamPathTemplate": "/api/users",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5276
-        }
-      ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": { "Permission": "users.view" }
     }
   ],
   "GlobalConfiguration": {

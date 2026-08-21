@@ -20,7 +20,6 @@ public class UniversitiesController(IUniversityService universityService ) : Con
     public async Task<IActionResult> GetById(int id)
     {
         var university = await universityService.GetByIdAsync(id);
-        if (university == null) return NotFound();
         return Ok(university);
 
     }    
@@ -38,7 +37,7 @@ public class UniversitiesController(IUniversityService universityService ) : Con
     public async Task<IActionResult> Delete(int id)
     {
         var success = await universityService.DeleteAsync(id);
-        if (success == false) return NotFound();
+       
         return Ok();
     }
 
@@ -47,7 +46,6 @@ public class UniversitiesController(IUniversityService universityService ) : Con
     public async Task<IActionResult> Update(int id, UniversityCreateDto universityUpdateDto)
     {
         var result = await universityService.UpdateAsync(id, universityUpdateDto);
-        if(result == null) return NotFound();
         return  Ok(result);
     }
 

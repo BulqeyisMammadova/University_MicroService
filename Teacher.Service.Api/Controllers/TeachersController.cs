@@ -22,8 +22,7 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var teacher = await teacherService.GetByIdAsync(id);
-        if (teacher == null)
-            return NotFound();
+      
 
         return Ok(teacher);
     }
@@ -34,7 +33,6 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
     {
         if (dto.PhoneNumbers == null) return NotFound();
         var result = await teacherService.CreateAsync(dto);
-        if(result == null) return NotFound();
         return Ok(result);
     }
 
@@ -43,7 +41,6 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
     public async Task<IActionResult> Update(int id, TeacherCreateDto dto)
     {
         var result = await teacherService.UpdateAsync(id, dto);
-        if(result == null) return NotFound();
         return Ok(result);
     }    
 
@@ -52,7 +49,6 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
     public async Task<IActionResult> Delete(int id)
     {
         var success = await teacherService.DeleteAsync(id);
-        if (success == false) return NotFound();
         return Ok();
     }
 
@@ -60,7 +56,6 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
     public async Task<IActionResult> AssignSubject(int teacherId, AssignSubjectDto dto)
     {
         var success = await teacherService.AssignSubjectAsync(teacherId, dto);
-        if (success == false) return NotFound();
         return Ok(success);
     }
 
@@ -68,7 +63,6 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
     public async Task<IActionResult> RemoveSubject(int teacherId, int subjectId)
     {
         var success = await teacherService.RemoveSubjectAsync(teacherId, subjectId);
-        if (success == false) return NotFound();
         return Ok();
     }
 
@@ -76,7 +70,6 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
     public async Task<IActionResult> AddPhone(int teacherId, AddPhoneDto dto)
     {
         var success = await teacherService.AddPhoneAsync(teacherId, dto);
-        if (success == false) return NotFound();
         return Ok();
     }
 
@@ -84,7 +77,6 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
     public async Task<IActionResult> RemovePhone(int teacherId, int phoneId)
     {
         var success = await teacherService.RemovePhoneAsync(teacherId, phoneId);
-        if (success == false) return NotFound();
         return Ok();
     }
 

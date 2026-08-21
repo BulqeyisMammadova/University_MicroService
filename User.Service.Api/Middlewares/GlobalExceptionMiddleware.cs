@@ -1,0 +1,61 @@
+﻿using System.Text.Json;
+using User.Servic.Business.Exceptions;
+using User.Servic.Business.Models;
+
+namespace User.Service.Api.Middlewares;
+
+public class GlobalExceptionMiddleware
+{
+    private readonly RequestDelegate _next;
+    private readonly ILogger<GlobalExceptionMiddleware> _logger;
+
+    public GlobalExceptionMiddleware(RequestDelegate next, ILogger<GlobalExceptionMiddleware> logger)
+    {
+        _next = next;
+        _logger = logger;
+    }
+
+    public async Task InvokeAsync(HttpContext context)
+    {
+        try
+        {
+            await _next(context);
+        }
+        catch (NotFoundException ex)
+        {
+            _logger.LogWarning(ex, "Not found: {Message}", ex.Message);
+            await WriteErrorResponseAsync(context, ex.StatusCode, ex.Message);
+        }
+        catch (ConflictException ex)
+        {
+            _logger.LogWarning(ex, "Conflict: {Message}", ex.Message);
+            await WriteErrorResponseAsync(context, ex.StatusCode, ex.Message);
+        }
+        catch (BadRequestException ex)
+        {
+            _logger.LogWarning(ex, "Bad request: {Message}", ex.Message);
+            await WriteErrorResponseAsync(context, ex.StatusCode, ex.Message);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Unhandled exception occurred");
+            await WriteErrorResponseAsync(context, StatusCodes.Status500InternalServerError,
+                "An unexpected error occurred. Please try again later.");
+        }
+    }
+
+    private static async Task WriteErrorResponseAsync(HttpContext context, int statusCode, string message)
+    {
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = statusCode;
+
+        var response = new ErrorModel
+        {
+            StatusCode = statusCode,
+            Message = message
+        };
+
+        var json = JsonSerializer.Serialize(response);
+        await context.Response.WriteAsync(json);
+    }
+}

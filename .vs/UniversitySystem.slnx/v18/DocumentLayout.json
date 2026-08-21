@@ -3,8 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{34A734FC-538D-418F-8BDA-FD15CF24EEA2}|User.Servic.Business\\User.Servic.Business.csproj|c:\\users\\balqeyis\\desktop\\universitysystem\\user.servic.business\\services\\implementations\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{34A734FC-538D-418F-8BDA-FD15CF24EEA2}|User.Servic.Business\\User.Servic.Business.csproj|solutionrelative:user.servic.business\\services\\implementations\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC69D228-3DD0-438E-AB47-A9C87AEAA2AF}|User.Service.Api\\User.Service.Api.csproj|c:\\users\\balqeyis\\desktop\\universitysystem\\user.service.api\\middlewares\\globalexceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC69D228-3DD0-438E-AB47-A9C87AEAA2AF}|User.Service.Api\\User.Service.Api.csproj|solutionrelative:user.service.api\\middlewares\\globalexceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4D20122-AD0B-459B-8CC2-FA0155532DD1}|Student.Service.Api\\Student.Service.Api.csproj|c:\\users\\balqeyis\\desktop\\universitysystem\\student.service.api\\nlog.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{F4D20122-AD0B-459B-8CC2-FA0155532DD1}|Student.Service.Api\\Student.Service.Api.csproj|solutionrelative:student.service.api\\nlog.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5CBC5E2-6BDB-4E9C-8A4E-073A05507A36}|Teacher.Service.Api\\Teacher.Service.Api.csproj|c:\\users\\balqeyis\\desktop\\universitysystem\\teacher.service.api\\nlog.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{F5CBC5E2-6BDB-4E9C-8A4E-073A05507A36}|Teacher.Service.Api\\Teacher.Service.Api.csproj|solutionrelative:teacher.service.api\\nlog.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E9B3BD8-8C66-26CB-747D-97879CCD628E}|University.Service.Api\\University.Service.Api.csproj|c:\\users\\balqeyis\\desktop\\universitysystem\\university.service.api\\nlog.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{1E9B3BD8-8C66-26CB-747D-97879CCD628E}|University.Service.Api\\University.Service.Api.csproj|solutionrelative:university.service.api\\nlog.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC69D228-3DD0-438E-AB47-A9C87AEAA2AF}|User.Service.Api\\User.Service.Api.csproj|c:\\users\\balqeyis\\desktop\\universitysystem\\user.service.api\\nlog.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{FC69D228-3DD0-438E-AB47-A9C87AEAA2AF}|User.Service.Api\\User.Service.Api.csproj|solutionrelative:user.service.api\\nlog.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{936F96E8-462F-4CFF-8B5C-1E7B0F61D153}|Auth.Service.Api\\Auth.Service.Api.csproj|c:\\users\\balqeyis\\desktop\\universitysystem\\auth.service.api\\nlog.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{936F96E8-462F-4CFF-8B5C-1E7B0F61D153}|Auth.Service.Api\\Auth.Service.Api.csproj|solutionrelative:auth.service.api\\nlog.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E9B3BD8-8C66-26CB-747D-97879CCD628E}|University.Service.Api\\University.Service.Api.csproj|c:\\users\\balqeyis\\desktop\\universitysystem\\university.service.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E9B3BD8-8C66-26CB-747D-97879CCD628E}|University.Service.Api\\University.Service.Api.csproj|solutionrelative:university.service.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,15 +43,88 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Servic.Business\\Services\\Implementations\\UserService.cs",
-              "RelativeDocumentMoniker": "User.Servic.Business\\Services\\Implementations\\UserService.cs",
-              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Servic.Business\\Services\\Implementations\\UserService.cs",
-              "RelativeToolTip": "User.Servic.Business\\Services\\Implementations\\UserService.cs",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAowHoAAAByAAAAAAAAAA==",
+              "Title": "GlobalExceptionMiddleware.cs",
+              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.Api\\Middlewares\\GlobalExceptionMiddleware.cs",
+              "RelativeDocumentMoniker": "User.Service.Api\\Middlewares\\GlobalExceptionMiddleware.cs",
+              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.Api\\Middlewares\\GlobalExceptionMiddleware.cs",
+              "RelativeToolTip": "User.Service.Api\\Middlewares\\GlobalExceptionMiddleware.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwBwAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-13T09:09:30.733Z",
+              "WhenOpened": "2026-08-21T13:07:41.122Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "nlog.config",
+              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.Api\\nlog.config",
+              "RelativeDocumentMoniker": "User.Service.Api\\nlog.config",
+              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.Api\\nlog.config",
+              "RelativeToolTip": "User.Service.Api\\nlog.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-08-21T12:34:28.7Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "nlog.config",
+              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\University.Service.Api\\nlog.config",
+              "RelativeDocumentMoniker": "University.Service.Api\\nlog.config",
+              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\University.Service.Api\\nlog.config",
+              "RelativeToolTip": "University.Service.Api\\nlog.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-08-21T12:34:18.88Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "nlog.config",
+              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Teacher.Service.Api\\nlog.config",
+              "RelativeDocumentMoniker": "Teacher.Service.Api\\nlog.config",
+              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Teacher.Service.Api\\nlog.config",
+              "RelativeToolTip": "Teacher.Service.Api\\nlog.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-08-21T12:34:09.687Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "nlog.config",
+              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Student.Service.Api\\nlog.config",
+              "RelativeDocumentMoniker": "Student.Service.Api\\nlog.config",
+              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Student.Service.Api\\nlog.config",
+              "RelativeToolTip": "Student.Service.Api\\nlog.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-08-21T12:33:47.516Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "nlog.config",
+              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Auth.Service.Api\\nlog.config",
+              "RelativeDocumentMoniker": "Auth.Service.Api\\nlog.config",
+              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Auth.Service.Api\\nlog.config",
+              "RelativeToolTip": "Auth.Service.Api\\nlog.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-08-21T12:33:19.296Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\University.Service.Api\\Program.cs",
+              "RelativeDocumentMoniker": "University.Service.Api\\Program.cs",
+              "ToolTip": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\University.Service.Api\\Program.cs",
+              "RelativeToolTip": "University.Service.Api\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-21T12:25:11.062Z"
             }
           ]
         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using User.Servic.Business.DTOs.PagitationsDtos;
 using User.Servic.Business.DTOs.PermissionDtos;
+using User.Servic.Business.Exceptions;
 using User.Service.Business.Extensions;
 using User.Service.Business.Services.Abstractions;
 using User.Service.Core.Entities.Entity;
@@ -26,7 +27,7 @@ public class PermissionService(IUnitOfWork unitOfWork) : IPermissionService
     public async Task<PermissionDto?> GetByIdAsync(int id)
     {
         var permission = await unitOfWork.Permissions.GetByIdAsync(id);
-        if (permission == null) return null;
+        if (permission == null) throw new NotFoundException("Permission not found.");
 
         return new PermissionDto { Id = permission.Id, Name = permission.Name, IsActive = permission.IsActive };
     }
@@ -34,7 +35,7 @@ public class PermissionService(IUnitOfWork unitOfWork) : IPermissionService
     public async Task<PermissionDto> CreateAsync(PermissionCreateDto dto)
     {
         var exists = await unitOfWork.Permissions.Query().AnyAsync(p => p.Name == dto.Name);
-        if (exists) throw new InvalidOperationException("This permission already exists.");
+        if (exists) throw new ConflictException("This permission already exists.");
 
         var permission = new Permission { Name = dto.Name};
         await unitOfWork.Permissions.AddAsync(permission);
@@ -46,10 +47,9 @@ public class PermissionService(IUnitOfWork unitOfWork) : IPermissionService
     public async Task<PermissionDto?> UpdateAsync(int id, PermissionUpdateDto dto)
     {
         var permission = await unitOfWork.Permissions.GetByIdAsync(id);
-        if (permission == null) return null;
-
+        if (permission == null) throw new NotFoundException("Permission not found.");
         var nameTaken = await unitOfWork.Permissions.Query().AnyAsync(p => p.Name == dto.Name && p.Id != id);
-        if (nameTaken) throw new InvalidOperationException("This permission name already exists.");
+        if (nameTaken) throw new ConflictException("This permission name already exists.");
 
         permission.Name = dto.Name;
         permission.IsActive = dto.IsActive;
@@ -62,7 +62,7 @@ public class PermissionService(IUnitOfWork unitOfWork) : IPermissionService
     public async Task<bool> DeleteAsync(int id)
     {
         var permission = await unitOfWork.Permissions.GetByIdAsync(id);
-        if (permission == null) return false;
+        if (permission == null) throw new NotFoundException("Permission not found");
 
         permission.IsActive = false;
         unitOfWork.Permissions.Update(permission);
@@ -73,7 +73,7 @@ public class PermissionService(IUnitOfWork unitOfWork) : IPermissionService
     public async Task<bool> HardDeleteAsync(int id)
     {
         var permission = await unitOfWork.Permissions.GetByIdAsync(id);
-        if (permission == null) return false;
+        if (permission == null) throw new NotFoundException("Permission not found");
 
         unitOfWork.Permissions.Delete(permission);
         await unitOfWork.SaveChangesAsync();

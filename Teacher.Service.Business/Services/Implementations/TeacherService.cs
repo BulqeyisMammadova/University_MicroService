@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Teacher.Service.Business.DTOs;
+using Teacher.Service.Business.Exceptions;
 using Teacher.Service.Business.Extensions;
 using Teacher.Service.Business.Services.Abstractions;
 using Teacher.Service.Core.Entities;
@@ -33,7 +34,7 @@ public class TeacherService(IUnitOfWork unitOfWork) : ITeacherService
                 .ThenInclude(ts => ts.Subject)
             .FirstOrDefaultAsync(t => t.Id == id);
 
-        if (teacher == null) return null;
+        if (teacher == null) throw new NotFoundException("Teacher not found");
 
         return MapToDto(teacher);
     }
@@ -64,7 +65,7 @@ public class TeacherService(IUnitOfWork unitOfWork) : ITeacherService
             .Include(t => t.Phones)
             .FirstOrDefaultAsync(t => t.Id == id);
 
-        if (teacher == null) return null;
+        if (teacher == null) throw new NotFoundException("Teacher not found");
 
         teacher.FullName = dto.FullName;
         teacher.UniversityId = dto.UniversityId;
@@ -89,7 +90,7 @@ public class TeacherService(IUnitOfWork unitOfWork) : ITeacherService
     public async Task<bool> DeleteAsync(int id)
     {
         var teacher = await unitOfWork.Teachers.GetByIdAsync(id);
-        if (teacher == null) return false;
+        if (teacher == null) throw new NotFoundException("Teacher not found");
 
         unitOfWork.Teachers.Delete(teacher);
         await unitOfWork.SaveChangesAsync();
@@ -99,7 +100,7 @@ public class TeacherService(IUnitOfWork unitOfWork) : ITeacherService
     public async Task<bool> AddPhoneAsync(int teacherId, AddPhoneDto dto)
     {
         var teacher = await unitOfWork.Teachers.GetByIdAsync(teacherId);
-        if (teacher == null) return false;
+        if (teacher == null) throw new NotFoundException("Teacher not found");
 
         var phone = new TeacherPhone
         {
@@ -115,7 +116,7 @@ public class TeacherService(IUnitOfWork unitOfWork) : ITeacherService
     public async Task<bool> RemovePhoneAsync(int teacherId, int phoneId)
     {
         var phone = await unitOfWork.TeacherPhones.GetByIdAsync(phoneId);
-        if (phone == null || phone.TeacherId != teacherId) return false;
+        if (phone == null || phone.TeacherId != teacherId) throw new NotFoundException("Teacher not found");
 
         unitOfWork.TeacherPhones.Delete(phone);
         await unitOfWork.SaveChangesAsync();
@@ -127,12 +128,12 @@ public class TeacherService(IUnitOfWork unitOfWork) : ITeacherService
         var teacherExists = await unitOfWork.Teachers.GetByIdAsync(teacherId);
         var subjectExists = await unitOfWork.Subjects.GetByIdAsync(dto.SubjectId);
 
-        if (teacherExists == null || subjectExists == null) return false;
+        if (teacherExists == null || subjectExists == null) throw new NotFoundException("Teacher not found");
 
         var alreadyAssigned = await unitOfWork.TeacherSubjects.Query()
             .AnyAsync(ts => ts.TeacherId == teacherId && ts.SubjectId == dto.SubjectId);
 
-        if (alreadyAssigned) return false;
+        if (alreadyAssigned) throw new ConflictException("Teacher is already exist");
 
         var teacherSubject = new TeacherSubject
         {
@@ -150,7 +151,7 @@ public class TeacherService(IUnitOfWork unitOfWork) : ITeacherService
         var teacherSubject = await unitOfWork.TeacherSubjects.Query()
             .FirstOrDefaultAsync(ts => ts.TeacherId == teacherId && ts.SubjectId == subjectId);
 
-        if (teacherSubject == null) return false;
+        if (teacherSubject == null) throw new NotFoundException("Teacher not found");
 
         unitOfWork.TeacherSubjects.Delete(teacherSubject);
         await unitOfWork.SaveChangesAsync();

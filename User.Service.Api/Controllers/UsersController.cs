@@ -14,16 +14,13 @@ public class UsersController(IUserService userService) : ControllerBase
     public async Task<IActionResult> Register(RegisterDto dto)
     {
         var result = await userService.RegisterAsync(dto);
-        if(result == null) return BadRequest("This email is already exists or role not selected.");
         return Ok(result);
-        
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginDto dto)
     {
         var result = await userService.LoginAsync(dto);
-        if(result == null) return BadRequest("This email is not registered or password is incorrect.");
         return Ok(result);
     }
 
@@ -34,7 +31,7 @@ public class UsersController(IUserService userService) : ControllerBase
     public async Task<IActionResult> ConfirmEmail(ConfirmMailDto dto)
     {
         var success = await userService.ConfirmEmailAsync(dto);
-        return success ? Ok() : BadRequest();
+        return  Ok() ;
     }
 
     [HttpPost("forgot-password")]
@@ -48,7 +45,7 @@ public class UsersController(IUserService userService) : ControllerBase
     public async Task<IActionResult> ResetPassword(ResetPasswordDto dto)
     {
         var success = await userService.ResetPasswordAsync(dto);
-        return success ? Ok() : BadRequest();
+        return  Ok() ;
     }
 
 
@@ -65,29 +62,29 @@ public class UsersController(IUserService userService) : ControllerBase
         if(result == null) return BadRequest ("Failed to retrieve users.");
         return Ok(result);
     }
+    
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
         var result = await userService.GetByIdAsync(id);
-        return result == null ? NotFound() : Ok(result);
+        return  Ok(result);
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, UserUpdateDto dto)
     {
-          var result = await userService.UpdateAsync(id, dto);
-            return result == null ? NotFound() : Ok(result);
-       
+        var result = await userService.UpdateAsync(id, dto);
+        return Ok(result);
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var success = await userService.DeleteAsync(id);
-        return success ? Ok() : NotFound();
+        await userService.DeleteAsync(id);
+        return Ok();
     }
 
-    
+
     [HttpPost("{id}/roles/{roleId}")]
     public async Task<IActionResult> AddRole(int id, int roleId)
     {
@@ -101,6 +98,6 @@ public class UsersController(IUserService userService) : ControllerBase
     public async Task<IActionResult> RemoveRole(int id, int roleId)
     {
         var success = await userService.RemoveRoleFromUserAsync(id, roleId);
-        return success ? Ok() : NotFound();
+        return  Ok() ;
     }
 }

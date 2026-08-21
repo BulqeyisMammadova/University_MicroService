@@ -22,7 +22,6 @@ public class PermissionsController(IPermissionService permissionService) : Contr
     public async Task<IActionResult> GetById(int id)
     {
         var result = await permissionService.GetByIdAsync(id);
-        if (result == null) return NotFound();
         return Ok(result);
     }
 
@@ -40,7 +39,7 @@ public class PermissionsController(IPermissionService permissionService) : Contr
     public async Task<IActionResult> Update(int id, PermissionUpdateDto dto)
     {        
             var result = await permissionService.UpdateAsync(id, dto);
-            return result == null ? NotFound() : Ok(result);
+            return  Ok(result);
         
     }
 
@@ -49,7 +48,6 @@ public class PermissionsController(IPermissionService permissionService) : Contr
     public async Task<IActionResult> Delete(int id)
     {
         var success = await permissionService.DeleteAsync(id);
-        if (!success) return NotFound();
         return Ok();
     }
 
@@ -57,6 +55,6 @@ public class PermissionsController(IPermissionService permissionService) : Contr
     public async Task<IActionResult> Remove(int id)
     {
         var success = await permissionService.HardDeleteAsync(id);
-        return success ? Ok() : NotFound();
+        return Ok();
     }
 }

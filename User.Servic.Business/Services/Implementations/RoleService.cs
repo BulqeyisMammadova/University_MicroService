@@ -2,6 +2,7 @@
 using User.Servic.Business.DTOs.PagitationsDtos;
 using User.Servic.Business.DTOs.PermissionDtos;
 using User.Servic.Business.DTOs.RoleDtos;
+using User.Servic.Business.Exceptions;
 using User.Service.Business.Extensions;
 using User.Service.Business.Services.Abstractions;
 using User.Service.Core.Entities;
@@ -58,7 +59,7 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
     public async Task<RoleDto?> GetByIdAsync(int id)
     {
         var role = await unitOfWork.Roles.GetByIdAsync(id);
-        if (role == null) return null;
+        if (role == null) throw new NotFoundException("Role not found");
 
         var permissions = await unitOfWork.RolePermissions.Query()
             .Where(rp => rp.RoleId == id)
@@ -77,7 +78,7 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
     public async Task<RoleDto> CreateAsync(RoleCreateDto dto)
     {
         var exists = await unitOfWork.Roles.Query().AnyAsync(r => r.Name == dto.Name);
-        if (exists) throw new InvalidOperationException("This role already exists.");
+        if (exists) throw new ConflictException("This role already exists.");
 
         var role = new Role { Name = dto.Name };
         await unitOfWork.Roles.AddAsync(role);
@@ -109,10 +110,10 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
     public async Task<RoleDto?> UpdateAsync(int id, RoleUpdateDto dto)
     {
         var role = await unitOfWork.Roles.GetByIdAsync(id);
-        if (role == null) return null;
+        if (role == null) throw new NotFoundException("Role not found.");
 
         var nameTaken = await unitOfWork.Roles.Query().AnyAsync(r => r.Name == dto.Name && r.Id != id);
-        if (nameTaken) throw new InvalidOperationException("This role name already exists.");
+        if (nameTaken) throw new ConflictException("This role name already exists.");
 
         role.Name = dto.Name;
         unitOfWork.Roles.Update(role);
@@ -139,7 +140,7 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
         var hasActiveUsers = await unitOfWork.UserRoles.Query()
             .AnyAsync(ur => ur.RoleId == id && ur.IsActive);
         if (hasActiveUsers)
-            throw new InvalidOperationException("This role has active users.");
+            throw new ConflictException("This role has active users.");
 
         role.IsActive = false;
         unitOfWork.Roles.Update(role);
@@ -154,8 +155,7 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
 
         var hasUsers = await unitOfWork.UserRoles.Query().AnyAsync(ur => ur.RoleId == id);
         if (hasUsers)
-            throw new InvalidOperationException("There are users assigned to this role, please change their roles first.");
-
+            throw new ConflictException("There are users assigned to this role, please change their roles first.");
         unitOfWork.Roles.Delete(role);
         await unitOfWork.SaveChangesAsync();
         return true;
@@ -177,10 +177,10 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
     public async Task<bool> AddPermissionToRoleAsync(int roleId, int permissionId)
     {
         var role = await unitOfWork.Roles.GetByIdAsync(roleId);
-        if (role == null) throw new InvalidOperationException("Role not found.");
+        if (role == null) throw new NotFoundException("Role not found.");
 
         var permission = await unitOfWork.Permissions.GetByIdAsync(permissionId);
-        if (permission == null) throw new InvalidOperationException("Permission not found.");
+        if (permission == null) throw new NotFoundException("Permission not found.");
 
         var existing = await unitOfWork.RolePermissions.Query()
             .FirstOrDefaultAsync(rp => rp.RoleId == roleId && rp.PermissionId == permissionId);

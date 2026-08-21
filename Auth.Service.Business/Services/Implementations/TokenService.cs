@@ -1,4 +1,5 @@
 ﻿using Auth.Service.Business.DTOs;
+using Auth.Service.Business.Exceptions;
 using Auth.Service.Business.Services.Abstarctions;
 using Auth.Service.Business.Services.Abstractions;
 using System.Security.Claims;
@@ -40,7 +41,7 @@ public class TokenService : ITokenService
     public async Task<AccessTokenDto?> RefreshTokenAsync(string refreshToken)
     {
         var stored = await _refreshStore.GetAsync(refreshToken);
-        if (stored == null) return null;
+        if (stored == null) throw new NotFoundException("RefreshToken not found");
 
         await _refreshStore.RemoveAsync(refreshToken);
 
@@ -50,7 +51,7 @@ public class TokenService : ITokenService
     public async Task<bool> RevokeAsync(string refreshToken)
     {
         var stored = await _refreshStore.GetAsync(refreshToken);
-        if (stored == null) return false;
+        if (stored == null) throw new NotFoundException("RefreshToken not found");
 
         await _refreshStore.RemoveAsync(refreshToken);
         return true;

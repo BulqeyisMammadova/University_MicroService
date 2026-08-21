@@ -1,4 +1,5 @@
 ﻿using University.Service.Business.DTOs;
+using University.Service.Business.Exception;
 using University.Service.Business.Extensions;
 using University.Service.Business.Services.Abstarctions;
 using University.Service.Core.Entities;
@@ -25,7 +26,7 @@ public class UniversityService(IUnitOfWork unitOfWork) : IUniversityService
     public async Task<UniversityDto?> GetByIdAsync(int id)
     {
         var university = await unitOfWork.Universities.GetByIdAsync(id);
-        if (university == null) return null;
+        if (university == null) throw new NotFoundExceptions("University not found ");
 
         return new UniversityDto
         {
@@ -54,7 +55,7 @@ public class UniversityService(IUnitOfWork unitOfWork) : IUniversityService
     public async Task<UniversityDto?> UpdateAsync(int id, UniversityCreateDto universityUpdateDto)
     {
         var university = await unitOfWork.Universities.GetByIdAsync(id);
-        if (university == null) return null;
+        if (university == null) throw new NotFoundExceptions("University not found ");
 
         university.Name = universityUpdateDto.Name;
         unitOfWork.Universities.Update(university);
@@ -70,7 +71,7 @@ public class UniversityService(IUnitOfWork unitOfWork) : IUniversityService
     public async Task<bool> DeleteAsync(int id)
     {
         var university = await unitOfWork.Universities.GetByIdAsync(id);
-        if (university == null) return false;
+        if (university == null) throw new NotFoundExceptions("University not found ");
 
         unitOfWork.Universities.Delete(university);
         await unitOfWork.SaveChangesAsync();

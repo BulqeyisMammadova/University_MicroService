@@ -20,7 +20,6 @@ public class StudentsController(IStudentService studentService) : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var student = await studentService.GetByIdAsync(id);
-        if (student == null) return NotFound();
         return Ok(student);
     }
 
@@ -36,8 +35,7 @@ public class StudentsController(IStudentService studentService) : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var success = await studentService.DeleteAsync(id);
-        if (success == false) return NotFound();
+        var success = await studentService.DeleteAsync(id);       
         return Ok();
     }
 
@@ -46,7 +44,6 @@ public class StudentsController(IStudentService studentService) : ControllerBase
     public async Task<IActionResult> Update(int id, StudentCreateDto studentUpdateDto)
     {
         var result = await studentService.UpdateAsync(id, studentUpdateDto);
-        if (result == null) return NotFound();
         return Ok(result);
     }
 

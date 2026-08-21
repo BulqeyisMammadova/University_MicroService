@@ -1,4 +1,5 @@
 ﻿using Teacher.Service.Business.DTOs;
+using Teacher.Service.Business.Exceptions;
 using Teacher.Service.Business.Extensions;
 using Teacher.Service.Business.Services.Abstractions;
 using Teacher.Service.Core.Entities;
@@ -20,7 +21,7 @@ public class SubjectService(IUnitOfWork unitOfWork) : ISubjectService
     public async Task<SubjectDto?> GetByIdAsync(int id)
     {
         var subject = await unitOfWork.Subjects.GetByIdAsync(id);
-        if (subject == null) return null;
+        if (subject == null) throw new NotFoundException("Teacher not found");
 
         return new SubjectDto { Id = subject.Id, Name = subject.Name };
     }
@@ -38,7 +39,7 @@ public class SubjectService(IUnitOfWork unitOfWork) : ISubjectService
     public async Task<SubjectDto?> UpdateAsync(int id, SubjectCreateDto dto)
     {
         var subject = await unitOfWork.Subjects.GetByIdAsync(id);
-        if (subject == null) return null;
+        if (subject == null) throw new NotFoundException("Teacher not found");
 
         subject.Name = dto.Name;
         unitOfWork.Subjects.Update(subject);
@@ -50,7 +51,7 @@ public class SubjectService(IUnitOfWork unitOfWork) : ISubjectService
     public async Task<bool> DeleteAsync(int id)
     {
         var subject = await unitOfWork.Subjects.GetByIdAsync(id);
-        if (subject == null) return false;
+        if (subject == null) throw new NotFoundException("Teacher not found");
 
         unitOfWork.Subjects.Delete(subject);
         await unitOfWork.SaveChangesAsync();

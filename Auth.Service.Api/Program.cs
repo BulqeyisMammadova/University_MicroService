@@ -5,8 +5,15 @@ using Auth.Service.DataAccess.Data;
 using Auth.Service.DataAccess.Repositories.Abstarctions;
 using Auth.Service.DataAccess.Repositories.Implementations;
 using Microsoft.EntityFrameworkCore;
+using NLog;
+using NLog.Web;
+using Auth.Service.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var logPath = builder.Configuration["LogSettings:Path"];
+GlobalDiagnosticsContext.Set("logDirectory", logPath!);
+builder.Host.UseNLog();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -23,7 +30,6 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// ✅ Yeni əlavə: CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -36,15 +42,14 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+app.UseMiddleware<GlobalExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-//: CORS middleware
 app.UseCors("AllowAll");
-
-
 app.UseHttpsRedirection();
 app.MapControllers();
 

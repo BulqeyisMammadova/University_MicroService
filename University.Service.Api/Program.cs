@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using NLog;
+using NLog.Web;
+using University.Service.Api.Middlewares;
 using University.Service.Business.Services.Abstarctions;
 using University.Service.Business.Services.Implementations;
 using University.Service.DataAccess.Data;
@@ -7,6 +10,10 @@ using University.Service.DataAccess.Repositories.Abstarctions;
 using University.Service.DataAccess.Repositories.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var logPath = builder.Configuration["LogSettings:Path"];
+GlobalDiagnosticsContext.Set("logDirectory", logPath!);
+builder.Host.UseNLog();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -45,6 +52,8 @@ builder.Services.AddCors(options =>
     });
 });
 var app = builder.Build();
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

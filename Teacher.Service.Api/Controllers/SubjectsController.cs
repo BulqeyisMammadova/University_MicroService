@@ -22,8 +22,7 @@ public class SubjectsController(ISubjectService subjectService) : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var subject = await subjectService.GetByIdAsync(id);
-        if (subject == null)
-            return NotFound();
+      
 
         return Ok(subject);
     }
@@ -31,7 +30,6 @@ public class SubjectsController(ISubjectService subjectService) : ControllerBase
     public async Task<IActionResult> Create(SubjectCreateDto dto)
     {
         var result = await subjectService.CreateAsync(dto);
-        if (result == null) return NotFound();
         return Ok(result);
     }
 
@@ -40,7 +38,6 @@ public class SubjectsController(ISubjectService subjectService) : ControllerBase
     public async Task<IActionResult> Update(int id, SubjectCreateDto dto)
     {
         var result = await subjectService.UpdateAsync(id, dto);
-        if (result == null) return NotFound();
         return Ok(result);
     }
 
@@ -48,7 +45,6 @@ public class SubjectsController(ISubjectService subjectService) : ControllerBase
     public async Task<IActionResult> Delete(int id)
     {
         var success = await subjectService.DeleteAsync(id);
-        if(success == false) return NotFound();
         return Ok(success);    
     }
 

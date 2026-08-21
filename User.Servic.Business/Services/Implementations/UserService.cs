@@ -4,12 +4,13 @@ using User.Servic.Business.DTOs.PagitationsDtos;
 using User.Servic.Business.DTOs.PermissionDtos;
 using User.Servic.Business.DTOs.TokenDtos;
 using User.Servic.Business.DTOs.UserDtos;
+using User.Servic.Business.Exceptions;
 using User.Servic.Business.Services.Abstractions;
 using User.Service.Business.Extensions;
 using User.Service.Business.Services.Abstractions;
-using User.Service.DataAccess.Repositories.Abstarctions;
 using User.Service.Core.Entities.Entity;
 using User.Service.Core.Entities.Enum;
+using User.Service.DataAccess.Repositories.Abstarctions;
 
 namespace User.Service.Business.Services.Implementations;
 
@@ -18,11 +19,9 @@ public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceC
     public async Task<UserDto> RegisterAsync(RegisterDto dto)
     {
         var exists = await unitOfWork.Users.Query().AnyAsync(u => u.Email == dto.Email);
-        if (exists) throw new InvalidOperationException("This email already exists.");
-
+        if (exists) throw new ConflictException("This email already exists.");
         if (dto.RoleIds.Count == 0)
-            throw new InvalidOperationException("Role not selected.");
-
+            throw new BadRequestException("Role not selected.");
         var user = new Core.Entities.Entity.User
         {
             FullName = dto.FullName,
@@ -79,17 +78,16 @@ public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceC
         var user = await unitOfWork.Users.Query()
             .FirstOrDefaultAsync(u => u.Email == dto.Email && u.IsActive);
 
-        if (user == null) return null;
-
+        if (user == null) throw new NotFoundException("User not found.");
         var isConfirmed = await unitOfWork.Users.Query()
             .Where(u => u.Id == user.Id)
             .Select(u => u.IsEmailConfirmed)
             .FirstOrDefaultAsync();
 
-        if (!isConfirmed) return null; 
+        if (!isConfirmed) throw new NotFoundException("User not found"); 
 
         var passwordOk = BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash);
-        if (!passwordOk) return null;
+        if (!passwordOk)  throw new NotFoundException("User not found"); ;
 
         var activeRoleIds = await unitOfWork.UserRoles.Query()
             .Where(ur => ur.UserId == user.Id && ur.IsActive)
@@ -169,7 +167,7 @@ public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceC
     public async Task<GetUserDto?> GetByIdAsync(int id)
     {
         var user = await unitOfWork.Users.GetByIdAsync(id);
-        if (user == null) return null;
+        if (user == null) throw new NotFoundException("User not found"); ;
 
         var userRoles = await unitOfWork.UserRoles.Query()
             .Where(ur => ur.UserId == id)
@@ -214,10 +212,10 @@ public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceC
     public async Task<UserDto?> UpdateAsync(int id, UserUpdateDto dto)
     {
         var user = await unitOfWork.Users.GetByIdAsync(id);
-        if (user == null) return null;
+        if (user == null) throw new NotFoundException("User not found"); ;
 
         var emailTaken = await unitOfWork.Users.Query().AnyAsync(u => u.Email == dto.Email && u.Id != id);
-        if (emailTaken) throw new InvalidOperationException("This email already exists.");
+        if (emailTaken)   throw new ConflictException("This email already exists.");
 
         user.FullName = dto.FullName;
         user.Email = dto.Email;
@@ -242,7 +240,7 @@ public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceC
     public async Task<bool> DeleteAsync(int id)
     {
         var user = await unitOfWork.Users.GetByIdAsync(id);
-        if (user == null) return false;
+        if (user == null) throw new NotFoundException("User not found");
 
         user.IsActive = false;
         unitOfWork.Users.Update(user);
@@ -253,10 +251,10 @@ public class UserService(IUnitOfWork unitOfWork, IAuthServiceClient authServiceC
     public async Task<bool> AddRoleToUserAsync(int userId, int roleId)
     {
         var user = await unitOfWork.Users.GetByIdAsync(userId);
-        if (user == null) throw new InvalidOperationException("User not found.");
+       if (user == null) throw new NotFoundException("User not found.");
 
         var role = await unitOfWork.Roles.GetByIdAsync(roleId);
-        if (role == null) throw new InvalidOperationException("Role not found.");
+        if (role == null) throw new NotFoundException("Role not found.");
 
         var existing = await unitOfWork.UserRoles.Query()
             .FirstOrDefaultAsync(ur => ur.UserId == userId && ur.RoleId == roleId);

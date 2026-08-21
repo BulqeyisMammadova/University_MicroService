@@ -19,7 +19,7 @@ public class RolesController(IRoleService roleService) : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var result = await roleService.GetByIdAsync(id);
-        return result == null ? NotFound() : Ok(result);
+        return  Ok(result);
     }
 
     [HttpPost]
@@ -34,7 +34,7 @@ public class RolesController(IRoleService roleService) : ControllerBase
     {
         
             var result = await roleService.UpdateAsync(id, dto);
-            return result == null ? NotFound() : Ok(result);
+            return  Ok(result);
         
     }
 
@@ -43,7 +43,7 @@ public class RolesController(IRoleService roleService) : ControllerBase
     {
         
             var success = await roleService.DeleteAsync(id);
-            return success ? Ok() : NotFound();
+            return Ok();
        
     }
 
@@ -51,7 +51,7 @@ public class RolesController(IRoleService roleService) : ControllerBase
     public async Task<IActionResult> HardDelete(int id)
     {
          var success = await roleService.HardDeleteAsync(id);
-            return success ? Ok() : NotFound();
+            return  Ok();
        
     }
 
@@ -74,6 +74,6 @@ public class RolesController(IRoleService roleService) : ControllerBase
     public async Task<IActionResult> RemovePermission(int id, int permissionId)
     {
         var success = await roleService.RemovePermissionFromRoleAsync(id, permissionId);
-        return success ? Ok() : NotFound();
+        return Ok();
     }
 }

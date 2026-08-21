@@ -19,8 +19,6 @@ public class AuthController(ITokenService tokenService) : ControllerBase
     public async Task<IActionResult> Refresh(RefreshTokenDto dto)
     {
         var result = await tokenService.RefreshTokenAsync(dto.RefreshToken);
-
-        if (result == null) return Unauthorized(new { message = "Refresh token yararsizdir." });
         return Ok(result);
     }
 
@@ -31,4 +29,5 @@ public class AuthController(ITokenService tokenService) : ControllerBase
         if (!success) return NotFound();
         return Ok();
     }
+
 }
