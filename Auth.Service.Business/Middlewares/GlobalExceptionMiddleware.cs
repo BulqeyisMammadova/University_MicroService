@@ -2,6 +2,8 @@
 using Auth.Service.Business.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using System.Net;
+using System.Net.Mime;
 using System.Text.Json;
 
 namespace Auth.Service.Api.Middlewares;
@@ -23,26 +25,42 @@ public class GlobalExceptionMiddleware
         {
             await _next(context);
         }
-        catch (NotFoundException ex)
-        {
-            _logger.LogWarning(ex, "Not found: {Message}", ex.Message);
-            await WriteErrorResponseAsync(context, ex.StatusCode, ex.Message);
-        }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unhandled exception occurred");
-            await WriteErrorResponseAsync(context, StatusCodes.Status500InternalServerError,
-                "An unexpected error occurred. Please try again later.");
+            await HandleExceptionResponseAsync(context, ex);
         }
     }
 
-    private static async Task WriteErrorResponseAsync(HttpContext context, int statusCode, string message)
+    private async Task HandleExceptionResponseAsync(HttpContext context, Exception exception)
     {
-        context.Response.ContentType = "application/json";
-        context.Response.StatusCode = statusCode;
+        context.Response.ContentType = MediaTypeNames.Application.Json;
 
-        var response = new ErrorModel { StatusCode = statusCode, Message = message };
-        var json = JsonSerializer.Serialize(response);
+        var deepEx = exception.GetDeepInnerException();
+        string logMessage = $"Path:{context.Request.Path} Method:{context.Request.Method}  " +
+                             $"{deepEx.Message} - {deepEx.StackTrace}";
+
+        ErrorModel response;
+
+        switch (exception)
+        {
+            case NotFoundException notFound:
+                context.Response.StatusCode = notFound.StatusCode;
+                response = new ErrorModel { StatusCode = notFound.StatusCode, Message = notFound.Message };
+                _logger.LogWarning(logMessage);
+                break;
+
+            default:
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                response = new ErrorModel
+                {
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Message = "An unexpected error occurred. Please try again later."
+                };
+                _logger.LogError(logMessage);
+                break;
+        }
+
+        var json = JsonSerializer.Serialize(response, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
         await context.Response.WriteAsync(json);
     }
 }

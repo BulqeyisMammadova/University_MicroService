@@ -2,10 +2,10 @@
 
 namespace University.Service.Business.Exception;
 
-public class NotFoundExceptions : System.Exception
+public class NotFoundException : System.Exception
 {
     public int StatusCode { get; } = StatusCodes.Status404NotFound;
 
-    public NotFoundExceptions(string message) : base(message) { }
+    public NotFoundException(string message) : base(message) { }
     
 }

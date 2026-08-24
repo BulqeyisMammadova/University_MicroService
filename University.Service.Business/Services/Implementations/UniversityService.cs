@@ -26,7 +26,7 @@ public class UniversityService(IUnitOfWork unitOfWork) : IUniversityService
     public async Task<UniversityDto?> GetByIdAsync(int id)
     {
         var university = await unitOfWork.Universities.GetByIdAsync(id);
-        if (university == null) throw new NotFoundExceptions("University not found ");
+        if (university == null) throw new NotFoundException("University not found ");
 
         return new UniversityDto
         {
@@ -55,7 +55,7 @@ public class UniversityService(IUnitOfWork unitOfWork) : IUniversityService
     public async Task<UniversityDto?> UpdateAsync(int id, UniversityCreateDto universityUpdateDto)
     {
         var university = await unitOfWork.Universities.GetByIdAsync(id);
-        if (university == null) throw new NotFoundExceptions("University not found ");
+        if (university == null) throw new NotFoundException("University not found ");
 
         university.Name = universityUpdateDto.Name;
         unitOfWork.Universities.Update(university);
@@ -71,7 +71,7 @@ public class UniversityService(IUnitOfWork unitOfWork) : IUniversityService
     public async Task<bool> DeleteAsync(int id)
     {
         var university = await unitOfWork.Universities.GetByIdAsync(id);
-        if (university == null) throw new NotFoundExceptions("University not found ");
+        if (university == null) throw new NotFoundException("University not found ");
 
         unitOfWork.Universities.Delete(university);
         await unitOfWork.SaveChangesAsync();
