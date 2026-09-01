@@ -21,7 +21,7 @@ public class GlobalExceptionMiddleware
         {
             await _next(context);
         }
-        catch (NotFoundExceptions ex)
+        catch (NotFoundException ex)
         {
             _logger.LogWarning(
                 "Not found: {Message} | Path: {Path} | Method: {Method}{NewLine}StackTrace: {StackTrace}",

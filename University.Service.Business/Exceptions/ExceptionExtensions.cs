@@ -1,8 +1,8 @@
-﻿namespace University.Service.Business.Exception;
+﻿namespace University.Service.Business.Exceptions;
 
 public static class ExceptionExtensions
 {
-    public static Exceptions GetDeepInnerException(this Exceptions exception)
+    public static Exception GetDeepInnerException(this Exception exception)
     {
         var current = exception;
         while (current.InnerException != null)
@@ -10,5 +10,5 @@ public static class ExceptionExtensions
             current = current.InnerException;
         }
         return current;
- 
+    }
 }
