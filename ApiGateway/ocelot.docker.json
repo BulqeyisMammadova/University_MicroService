@@ -1,0 +1,354 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/gateway/auth/{everything}",
+      "DownstreamPathTemplate": "/api/auth/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "auth-service", "Port": 8080 }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/users/register",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/api/users/register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/users/login",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/api/users/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/users/confirm-email",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/api/users/confirm-email",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/users/forgot-password",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/api/users/forgot-password",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/users/reset-password",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/api/users/reset-password",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/users",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "users.view" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/users/{id}/roles/{roleId}",
+      "UpstreamHttpMethod": [ "POST", "DELETE" ],
+      "DownstreamPathTemplate": "/api/users/{id}/roles/{roleId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "users.manage" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/users/{id}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/users/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "users.view" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/users/{id}",
+      "UpstreamHttpMethod": [ "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/users/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "users.manage" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/roles/{id}/permissions/{permissionId}",
+      "UpstreamHttpMethod": [ "POST", "DELETE" ],
+      "DownstreamPathTemplate": "/api/roles/{id}/permissions/{permissionId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "users.manage" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/roles/{id}/permissions",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/roles/{id}/permissions",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "users.view" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/roles/{id}/permanent",
+      "UpstreamHttpMethod": [ "DELETE" ],
+      "DownstreamPathTemplate": "/api/roles/{id}/permanent",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "users.manage" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/roles/{everything}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/roles/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "users.view" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/roles/{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/roles/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "users.manage" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/permissions/{id}/permanent",
+      "UpstreamHttpMethod": [ "DELETE" ],
+      "DownstreamPathTemplate": "/api/permissions/{id}/permanent",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "users.manage" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/permissions/{everything}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/permissions/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "users.view" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/permissions/{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/permissions/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "users.manage" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/universities/{everything}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/universities/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "university-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "universities.view" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/universities/{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/universities/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "university-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "universities.manage" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/teachers/{teacherId}/phones/{everything}",
+      "UpstreamHttpMethod": [ "POST", "DELETE" ],
+      "DownstreamPathTemplate": "/api/teachers/{teacherId}/phones/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "teacher-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "teacher-phones.manage" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/teachers/{everything}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/teachers/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "teacher-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "teachers.view" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/teachers/{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/teachers/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "teacher-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "teachers.manage" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/subjects/{everything}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/subjects/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "teacher-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "subjects.view" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/subjects/{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/subjects/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "teacher-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "subjects.manage" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/students/{everything}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/students/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "student-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "students.view" }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/students/{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/students/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "student-service", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": { "Permission": "students.manage" }
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://api-gateway:8080"
+  }
+}

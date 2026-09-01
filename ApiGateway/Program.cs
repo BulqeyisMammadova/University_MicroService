@@ -12,8 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 var logPath = builder.Configuration["LogSettings:Path"];
 GlobalDiagnosticsContext.Set("logDirectory", logPath!);
 builder.Host.UseNLog();
-
-builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+var ocelotFileName = builder.Environment.EnvironmentName == "Docker"
+    ? "ocelot.docker.json"
+    : "ocelot.json";
+builder.Configuration.AddJsonFile(ocelotFileName, optional: false, reloadOnChange: true);
 
 var jwtSecretKey = builder.Configuration["JWTOptions:SecretKey"]!;
 var jwtIssuer = builder.Configuration["JWTOptions:Issuer"]!;

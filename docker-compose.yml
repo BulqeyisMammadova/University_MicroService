@@ -1,0 +1,138 @@
+services:
+
+  sql-server:
+    image: mcr.microsoft.com/azure-sql-edge
+    container_name: sql-server
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "YourStrong@Passw0rd"
+    ports:
+      - "1433:1433"
+    networks:
+      - university-network
+
+  student-service:
+    build:
+      context: .
+      dockerfile: Student.Service.Api/Dockerfile
+    container_name: student-service
+    depends_on:
+      - sql-server
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__DefaultConnection: "Server=sql-server,1433;Database=StudentServiceDb;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True"
+      LogSettings__Path: "/app/Logs"
+    ports:
+      - "5222:8080"
+    volumes:
+      - shared-logs:/app/Logs
+    networks:
+      - university-network
+
+  teacher-service:
+    build:
+      context: .
+      dockerfile: Teacher.Service.Api/Dockerfile
+    container_name: teacher-service
+    depends_on:
+      - sql-server
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__DefaultConnection: "Server=sql-server,1433;Database=TeacherServiceDb;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True"
+      LogSettings__Path: "/app/Logs"
+    ports:
+      - "5141:8080"
+    volumes:
+      - shared-logs:/app/Logs
+    networks:
+      - university-network
+
+  university-service:
+    build:
+      context: .
+      dockerfile: University.Service.Api/Dockerfile
+    container_name: university-service
+    depends_on:
+      - sql-server
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__DefaultConnection: "Server=sql-server,1433;Database=UniversityServiceDb;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True"
+      LogSettings__Path: "/app/Logs"
+    ports:
+      - "5249:8080"
+    volumes:
+      - shared-logs:/app/Logs
+    networks:
+      - university-network
+
+  user-service:
+    build:
+      context: .
+      dockerfile: User.Service.Api/Dockerfile
+    container_name: user-service
+    depends_on:
+      - sql-server
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__DefaultConnection: "Server=sql-server,1433;Database=UserServiceDb;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True"
+      LogSettings__Path: "/app/Logs"
+    ports:
+      - "5276:8080"
+    volumes:
+      - shared-logs:/app/Logs
+    networks:
+      - university-network
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: Auth.Service.Api/Dockerfile
+    container_name: auth-service
+    depends_on:
+      - sql-server
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__DefaultConnection: "Server=sql-server,1433;Database=AuthServiceTokenDb;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True"
+      LogSettings__Path: "/app/Logs"
+      JWTOptions__SecretKey: "a06e384c-557d-420bbe65fb5fa465fa06e384cd6-b366-0bbea06e0bbe65fb5fa465fa06e384c384c-557d-42d6-b366-0bbe65fb5fa465fa06e384c-50bbe65fb5fa465fa06e384c57d-42d6-b366-0bbe65fb5fa4b5fa4"
+      JWTOptions__Issuer: "AuthService"
+      JWTOptions__Audience: "MicroservicesClients"
+      JWTOptions__ExpiredDate: "15"
+      JWTOptions__RefreshTokenExpiredDays: "7"
+    ports:
+      - "5004:8080"
+    volumes:
+      - shared-logs:/app/Logs
+    networks:
+      - university-network
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+    container_name: api-gateway
+    depends_on:
+      - student-service
+      - teacher-service
+      - university-service
+      - user-service
+      - auth-service
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Docker"
+      LogSettings__Path: "/app/Logs"
+      JWTOptions__SecretKey: "a06e384c-557d-420bbe65fb5fa465fa06e384cd6-b366-0bbea06e0bbe65fb5fa465fa06e384c384c-557d-42d6-b366-0bbe65fb5fa465fa06e384c-50bbe65fb5fa465fa06e384c57d-42d6-b366-0bbe65fb5fa4b5fa4"
+      JWTOptions__Issuer: "AuthService"
+      JWTOptions__Audience: "MicroservicesClients"
+    ports:
+      - "5195:8080"
+    volumes:
+      - shared-logs:/app/Logs
+    networks:
+      - university-network
+
+networks:
+  university-network:
+    driver: bridge
+
+volumes:
+  shared-logs:
