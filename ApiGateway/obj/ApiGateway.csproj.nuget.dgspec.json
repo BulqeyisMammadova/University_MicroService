@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\ApiGateway\\ApiGateway.csproj": {}
+    "/Users/bulqeyismammadova/Desktop/University_MicroService/ApiGateway/ApiGateway.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\ApiGateway\\ApiGateway.csproj": {
+    "/Users/bulqeyismammadova/Desktop/University_MicroService/ApiGateway/ApiGateway.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\ApiGateway\\ApiGateway.csproj",
+        "projectUniqueName": "/Users/bulqeyismammadova/Desktop/University_MicroService/ApiGateway/ApiGateway.csproj",
         "projectName": "ApiGateway",
-        "projectPath": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\ApiGateway\\ApiGateway.csproj",
-        "packagesPath": "C:\\Users\\Balqeyis\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\ApiGateway\\obj\\",
+        "projectPath": "/Users/bulqeyismammadova/Desktop/University_MicroService/ApiGateway/ApiGateway.csproj",
+        "packagesPath": "/Users/bulqeyismammadova/.nuget/packages/",
+        "outputPath": "/Users/bulqeyismammadova/Desktop/University_MicroService/ApiGateway/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Balqeyis\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/bulqeyismammadova/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -61,6 +54,10 @@
               "target": "Package",
               "version": "[10.0.9, )"
             },
+            "NLog.Web.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.0, )"
+            },
             "Ocelot": {
               "target": "Package",
               "version": "[24.1.0, )"
@@ -85,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.302/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

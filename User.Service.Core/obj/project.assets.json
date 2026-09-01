@@ -8,32 +8,24 @@
     "net10.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Balqeyis\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/Users/bulqeyismammadova/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.Core\\User.Service.Core.csproj",
+      "projectUniqueName": "/Users/bulqeyismammadova/Desktop/University_MicroService/User.Service.Core/User.Service.Core.csproj",
       "projectName": "User.Service.Core",
-      "projectPath": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.Core\\User.Service.Core.csproj",
-      "packagesPath": "C:\\Users\\Balqeyis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\User.Service.Core\\obj\\",
+      "projectPath": "/Users/bulqeyismammadova/Desktop/University_MicroService/User.Service.Core/User.Service.Core.csproj",
+      "packagesPath": "/Users/bulqeyismammadova/.nuget/packages/",
+      "outputPath": "/Users/bulqeyismammadova/Desktop/University_MicroService/User.Service.Core/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Balqeyis\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/bulqeyismammadova/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -75,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.302/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

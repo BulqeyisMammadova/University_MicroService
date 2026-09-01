@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace University.Service.Business.Exception;
+namespace University.Service.Business.Exceptions;
 
 public class NotFoundExceptions : System.Exception
 {

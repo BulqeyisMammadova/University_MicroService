@@ -1,10 +1,17 @@
 using System.Text;
+using ApiGateway.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using NLog;
+using NLog.Web;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var logPath = builder.Configuration["LogSettings:Path"];
+GlobalDiagnosticsContext.Set("logDirectory", logPath!);
+builder.Host.UseNLog();
 
 builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
@@ -34,7 +41,9 @@ builder.Services.AddAuthorization();
 builder.Services.AddOcelot(builder.Configuration);
 
 var app = builder.Build();
-
+app.UseMiddleware<RequestResponseLoggingMiddleware>();
+app.UseAuthentication();
+await app.UseOcelot();
 app.UseAuthentication();
 await app.UseOcelot();
 

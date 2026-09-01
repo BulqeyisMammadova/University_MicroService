@@ -1891,32 +1891,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Balqeyis\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/Users/bulqeyismammadova/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Student.Service.Business\\Student.Service.Business.csproj",
+      "projectUniqueName": "/Users/bulqeyismammadova/Desktop/University_MicroService/Student.Service.Business/Student.Service.Business.csproj",
       "projectName": "Student.Service.Business",
-      "projectPath": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Student.Service.Business\\Student.Service.Business.csproj",
-      "packagesPath": "C:\\Users\\Balqeyis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Student.Service.Business\\obj\\",
+      "projectPath": "/Users/bulqeyismammadova/Desktop/University_MicroService/Student.Service.Business/Student.Service.Business.csproj",
+      "packagesPath": "/Users/bulqeyismammadova/.nuget/packages/",
+      "outputPath": "/Users/bulqeyismammadova/Desktop/University_MicroService/Student.Service.Business/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Balqeyis\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/bulqeyismammadova/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1924,8 +1916,8 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Student.Service.DataAccess\\Student.Service.DataAccess.csproj": {
-              "projectPath": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Student.Service.DataAccess\\Student.Service.DataAccess.csproj"
+            "/Users/bulqeyismammadova/Desktop/University_MicroService/Student.Service.DataAccess/Student.Service.DataAccess.csproj": {
+              "projectPath": "/Users/bulqeyismammadova/Desktop/University_MicroService/Student.Service.DataAccess/Student.Service.DataAccess.csproj"
             }
           }
         }
@@ -1972,7 +1964,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.302/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

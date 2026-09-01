@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="AllService" type="CompoundRunConfigurationType">
+    <toRun name="ApiGateway: http" type="LaunchSettings" />
+    <toRun name="Auth.Service.Api: http" type="LaunchSettings" />
+    <toRun name="Student.Service.Api: http" type="LaunchSettings" />
+    <toRun name="Teacher.Service.Api: http" type="LaunchSettings" />
+    <toRun name="University.Service.Api: http" type="LaunchSettings" />
+    <toRun name="User.Service.Api: http" type="LaunchSettings" />
+    <method v="2" />
+  </configuration>
+</component>

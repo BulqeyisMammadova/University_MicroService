@@ -1,8 +1,6 @@
-﻿using Auth.Service.Business.Exceptions;
+﻿using System.Text.Json;
+using Auth.Service.Business.Exceptions;
 using Auth.Service.Business.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using System.Text.Json;
 
 namespace Auth.Service.Api.Middlewares;
 
@@ -25,12 +23,18 @@ public class GlobalExceptionMiddleware
         }
         catch (NotFoundException ex)
         {
-            _logger.LogWarning(ex, "Not found: {Message}", ex.Message);
+            _logger.LogWarning(
+                "Not found: {Message} | Path: {Path} | Method: {Method}{NewLine}StackTrace: {StackTrace}",
+                ex.Message, context.Request.Path, context.Request.Method, Environment.NewLine, ex.StackTrace);
+
             await WriteErrorResponseAsync(context, ex.StatusCode, ex.Message);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unhandled exception occurred");
+            _logger.LogError(
+                "Unhandled exception: {Message} | Path: {Path} | Method: {Method}{NewLine}StackTrace: {StackTrace}",
+                ex.Message, context.Request.Path, context.Request.Method, Environment.NewLine, ex.StackTrace);
+
             await WriteErrorResponseAsync(context, StatusCodes.Status500InternalServerError,
                 "An unexpected error occurred. Please try again later.");
         }

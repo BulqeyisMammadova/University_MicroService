@@ -1,5 +1,5 @@
 ﻿using University.Service.Business.DTOs;
-using University.Service.Business.Exception;
+using University.Service.Business.Exceptions;
 using University.Service.Business.Extensions;
 using University.Service.Business.Services.Abstarctions;
 using University.Service.Core.Entities;

@@ -3708,32 +3708,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Balqeyis\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/Users/bulqeyismammadova/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Teacher.Service.Api\\Teacher.Service.Api.csproj",
+      "projectUniqueName": "/Users/bulqeyismammadova/Desktop/University_MicroService/Teacher.Service.Api/Teacher.Service.Api.csproj",
       "projectName": "Teacher.Service.Api",
-      "projectPath": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Teacher.Service.Api\\Teacher.Service.Api.csproj",
-      "packagesPath": "C:\\Users\\Balqeyis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Teacher.Service.Api\\obj\\",
+      "projectPath": "/Users/bulqeyismammadova/Desktop/University_MicroService/Teacher.Service.Api/Teacher.Service.Api.csproj",
+      "packagesPath": "/Users/bulqeyismammadova/.nuget/packages/",
+      "outputPath": "/Users/bulqeyismammadova/Desktop/University_MicroService/Teacher.Service.Api/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Balqeyis\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/bulqeyismammadova/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3741,8 +3733,8 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Teacher.Service.Business\\Teacher.Service.Business.csproj": {
-              "projectPath": "C:\\Users\\Balqeyis\\Desktop\\UniversitySystem\\Teacher.Service.Business\\Teacher.Service.Business.csproj"
+            "/Users/bulqeyismammadova/Desktop/University_MicroService/Teacher.Service.Business/Teacher.Service.Business.csproj": {
+              "projectPath": "/Users/bulqeyismammadova/Desktop/University_MicroService/Teacher.Service.Business/Teacher.Service.Business.csproj"
             }
           }
         }
@@ -3802,7 +3794,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.302/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

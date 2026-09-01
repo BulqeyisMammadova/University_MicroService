@@ -23,22 +23,34 @@ public class GlobalExceptionMiddleware
         }
         catch (NotFoundException ex)
         {
-            _logger.LogWarning(ex, "Not found: {Message}", ex.Message);
+            _logger.LogWarning(
+                "Not found: {Message} | Path: {Path} | Method: {Method}{NewLine}StackTrace: {StackTrace}",
+                ex.Message, context.Request.Path, context.Request.Method, Environment.NewLine, ex.StackTrace);
+
             await WriteErrorResponseAsync(context, ex.StatusCode, ex.Message);
         }
         catch (ConflictException ex)
         {
-            _logger.LogWarning(ex, "Conflict: {Message}", ex.Message);
+            _logger.LogWarning(
+                "Conflict: {Message} | Path: {Path} | Method: {Method}{NewLine}StackTrace: {StackTrace}",
+                ex.Message, context.Request.Path, context.Request.Method, Environment.NewLine, ex.StackTrace);
+
             await WriteErrorResponseAsync(context, ex.StatusCode, ex.Message);
         }
         catch (BadRequestException ex)
         {
-            _logger.LogWarning(ex, "Bad request: {Message}", ex.Message);
+            _logger.LogWarning(
+                "Bad request: {Message} | Path: {Path} | Method: {Method}{NewLine}StackTrace: {StackTrace}",
+                ex.Message, context.Request.Path, context.Request.Method, Environment.NewLine, ex.StackTrace);
+
             await WriteErrorResponseAsync(context, ex.StatusCode, ex.Message);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unhandled exception occurred");
+            _logger.LogError(
+                "Unhandled exception: {Message} | Path: {Path} | Method: {Method}{NewLine}StackTrace: {StackTrace}",
+                ex.Message, context.Request.Path, context.Request.Method, Environment.NewLine, ex.StackTrace);
+
             await WriteErrorResponseAsync(context, StatusCodes.Status500InternalServerError,
                 "An unexpected error occurred. Please try again later.");
         }
@@ -49,12 +61,7 @@ public class GlobalExceptionMiddleware
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = statusCode;
 
-        var response = new ErrorModel
-        {
-            StatusCode = statusCode,
-            Message = message
-        };
-
+        var response = new ErrorModel { StatusCode = statusCode, Message = message };
         var json = JsonSerializer.Serialize(response);
         await context.Response.WriteAsync(json);
     }
